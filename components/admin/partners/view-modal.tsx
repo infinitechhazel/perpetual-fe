@@ -28,6 +28,7 @@ export default function ViewBusinessModal({ isOpen, selectedItem, onClose }: Vie
   const formatDate = (dateString: string) =>
     new Date(dateString).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })
 
+<<<<<<< HEAD
   // Construct proper image URL
   const getImageUrl = (photoPath: string | undefined | null): string | null => {
     if (!photoPath) return null
@@ -50,10 +51,16 @@ export default function ViewBusinessModal({ isOpen, selectedItem, onClose }: Vie
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto">
+=======
+  return (
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className="sm:max-w-md">
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
         <DialogHeader>
           <DialogTitle>Business Partner Details</DialogTitle>
         </DialogHeader>
 
+<<<<<<< HEAD
         <div className="space-y-4 text-sm">
           {imageUrl && (
             <div className="w-full">
@@ -134,9 +141,56 @@ export default function ViewBusinessModal({ isOpen, selectedItem, onClose }: Vie
               <p>Created: {formatDate(selectedItem.created_at)}</p>
               <p>Updated: {formatDate(selectedItem.updated_at)}</p>
             </div>
+=======
+        <div className="space-y-3 text-sm">
+          {selectedItem.photo && (
+            <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${selectedItem.photo}`} alt={selectedItem.business_name} className="w-full h-48 object-cover rounded" />
+          )}
+
+          <div>
+            <span className="font-medium">Business Name:</span> {selectedItem.business_name}
+          </div>
+          <div>
+            <span className="font-medium">Website:</span>{" "}
+            {selectedItem.website_link ? (
+              <a href={selectedItem.website_link} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                {selectedItem.website_link}
+              </a>
+            ) : (
+              "-"
+            )}
+          </div>
+          <div>
+            <span className="font-medium">Category:</span> {selectedItem.category || "-"}
+          </div>
+          <div>
+            <span className="font-medium">Description:</span> {selectedItem.description || "-"}
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="font-medium">Status:</span>
+            <Badge
+              variant={
+                selectedItem.status === "approved" ? "default" : selectedItem.status === "pending" ? "secondary" : "destructive"
+              }
+            >
+              {selectedItem.status.charAt(0).toUpperCase() + selectedItem.status.slice(1)}
+            </Badge>
+          </div>
+          {selectedItem.admin_note && (
+            <div>
+              <span className="font-medium">Admin Note:</span> {selectedItem.admin_note}
+            </div>
+          )}
+          <div className="text-xs text-muted-foreground">
+            Created on {formatDate(selectedItem.created_at)} | Updated on {formatDate(selectedItem.updated_at)}
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
           </div>
         </div>
       </DialogContent>
     </Dialog>
   )
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55

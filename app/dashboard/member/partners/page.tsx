@@ -1,12 +1,22 @@
 "use client"
 
 import { useState, useEffect } from "react"
+<<<<<<< HEAD
 import { Search, Filter, Eye, Plus, ChevronRight, ChevronLeft } from "lucide-react"
 import MemberLayout from "@/components/memberLayout"
 import { useAuth } from "@/hooks/useAuth"
 import { useToast } from "@/components/ui/use-toast"
 import MemberBusinessModal from "@/components/member/partners/add-modal"
 import MemberViewBusinessModal from "@/components/member/partners/view-modal"
+=======
+import { Search, Filter, Eye, Plus, ChevronRight, ChevronLeft, Pencil, Trash } from "lucide-react"
+import MemberLayout from "@/components/memberLayout"
+import { useAuth } from "@/hooks/useAuth"
+import { useToast } from "@/components/ui/use-toast"
+import MemberBusinessModal from "@/components/member/partners/add-edit-modal"
+import MemberViewBusinessModal from "@/components/member/partners/view-modal"
+import { MemberDeleteBusinessModal } from "@/components/member/partners/delete-modal"
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
 
 interface BusinessPartner {
   id: number
@@ -51,7 +61,12 @@ export default function MemberPartnersPage() {
   const [selectedPartner, setSelectedPartner] = useState<BusinessPartner | null>(null)
   const [isViewOpen, setIsViewOpen] = useState(false)
   const [isAddOpen, setIsAddOpen] = useState(false)
+<<<<<<< HEAD
 
+=======
+  const [isEditOpen, setIsEditOpen] = useState(false)
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false)
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
   // Fetch partners with optional page parameter
   const fetchPartners = async (page: number = 1) => {
     try {
@@ -63,7 +78,13 @@ export default function MemberPartnersPage() {
       if (statusFilter !== "all") params.append("status", statusFilter)
       if (searchQuery) params.append("search", searchQuery)
 
+<<<<<<< HEAD
       const res = await fetch(`/api/business-partners?${params.toString()}`, { credentials: "include" })
+=======
+      const res = await fetch(`/api/business-partners?${params.toString()}`, {
+        credentials: "include",
+      })
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
       const data = await res.json()
 
       if (res.ok && data.success) {
@@ -77,11 +98,27 @@ export default function MemberPartnersPage() {
           to: data.data.to,
         })
       } else {
+<<<<<<< HEAD
         toast({ variant: "destructive", title: "Error", description: data.message || "Failed to fetch partners" })
       }
     } catch (err) {
       console.error(err)
       toast({ variant: "destructive", title: "Error", description: "Failed to fetch partners" })
+=======
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: data.message || "Failed to fetch partners",
+        })
+      }
+    } catch (err) {
+      console.error(err)
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to fetch partners",
+      })
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
     } finally {
       setLoading(false)
     }
@@ -101,7 +138,15 @@ export default function MemberPartnersPage() {
   }, [authLoading, user, pagination.current_page])
 
   const formatDate = (dateString: string) =>
+<<<<<<< HEAD
     new Date(dateString).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })
+=======
+    new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    })
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
 
   if (authLoading) {
     return (
@@ -122,6 +167,50 @@ export default function MemberPartnersPage() {
     }
   }
 
+<<<<<<< HEAD
+=======
+  const openDeleteModal = (partner: BusinessPartner) => {
+    setSelectedPartner(partner)
+    setIsDeleteOpen(true)
+  }
+
+  const handleDelete = async () => {
+    if (!selectedPartner) return
+
+    try {
+      const res = await fetch(`/api/business-partners/${selectedPartner.id}`, {
+        method: "DELETE",
+        credentials: "include",
+      })
+      const data = await res.json()
+
+      if (res.ok && data.success) {
+        toast({
+          title: "Deleted",
+          description: `Business "${selectedPartner.business_name}" deleted successfully`,
+        })
+        fetchPartners(pagination.current_page)
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: data.message || "Failed to delete business",
+        })
+      }
+    } catch (err) {
+      console.error(err)
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Server error",
+      })
+    } finally {
+      setIsDeleteOpen(false)
+      setSelectedPartner(null)
+    }
+  }
+
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
   return (
     <MemberLayout>
       <div className="min-h-screen bg-gray-50">
@@ -223,6 +312,26 @@ export default function MemberPartnersPage() {
                         >
                           <Eye />
                         </button>
+<<<<<<< HEAD
+=======
+
+                        <button
+                          onClick={() => {
+                            setSelectedPartner(partner)
+                            setIsEditOpen(true)
+                          }}
+                          disabled={partner.status !== "pending"}
+                          className={`text-orange-600 p-1.5 rounded hover:bg-orange-50 ${
+                            partner.status !== "pending" ? "opacity-50 cursor-not-allowed hover:bg-transparent" : ""
+                          }`}
+                        >
+                          <Pencil />
+                        </button>
+
+                        <button onClick={() => openDeleteModal(partner)} className="text-red-400 p-1.5 rounded hover:bg-red-50">
+                          <Trash />
+                        </button>
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
                       </td>
                     </tr>
                   ))}
@@ -297,9 +406,35 @@ export default function MemberPartnersPage() {
           initialData={null}
           onClose={() => setIsAddOpen(false)}
           onSubmitSuccess={() => {
+<<<<<<< HEAD
             fetchPartners(1) 
           }}
         />
+=======
+            fetchPartners(1)
+          }}
+        />
+
+        <MemberBusinessModal
+          isOpen={isEditOpen}
+          mode="edit"
+          initialData={selectedPartner}
+          onClose={() => setIsEditOpen(false)}
+          onSubmitSuccess={() => {
+            fetchPartners(1)
+          }}
+        />
+
+        <MemberDeleteBusinessModal
+          isOpen={isDeleteOpen}
+          itemName={selectedPartner?.business_name || ""}
+          onClose={() => {
+            setIsDeleteOpen(false)
+            setSelectedPartner(null)
+          }}
+          onConfirm={handleDelete}
+        />
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
       </div>
     </MemberLayout>
   )

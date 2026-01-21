@@ -2,7 +2,11 @@
 
 import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
+<<<<<<< HEAD
 import { X, Calendar, User, Newspaper, Clock } from "lucide-react"
+=======
+import { X, Calendar, User, Newspaper, Clock, AlertTriangle } from "lucide-react"
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
 
 interface NewsArticle {
   id: number
@@ -20,10 +24,17 @@ interface NewsArticle {
   }
 }
 
+<<<<<<< HEAD
+=======
+const IMAGE_BASE_URL =
+  process.env.NEXT_PUBLIC_IMAGE_URL ?? "http://localhost:8000"
+
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
 export default function NewsSection() {
   const [news, setNews] = React.useState<NewsArticle[]>([])
   const [loading, setLoading] = React.useState(true)
   const [error, setError] = React.useState<string | null>(null)
+<<<<<<< HEAD
   const [selectedArticle, setSelectedArticle] = React.useState<NewsArticle | null>(null)
 
   // Get image URL - handle relative paths from Laravel
@@ -40,6 +51,29 @@ export default function NewsSection() {
     // Remove leading slash if present to avoid double slashes
     const cleanPath = imagePath.startsWith('/') ? imagePath.slice(1) : imagePath
     return `${baseUrl}/${cleanPath}`
+=======
+  const [selectedArticle, setSelectedArticle] =
+    React.useState<NewsArticle | null>(null)
+
+  const getImageUrl = (imagePath?: string) => {
+    if (!imagePath) return "/placeholder.svg"
+    if (imagePath.startsWith("http")) return imagePath
+
+    const cleanPath = imagePath.startsWith("/")
+      ? imagePath.slice(1)
+      : imagePath
+
+    return `${IMAGE_BASE_URL}/${cleanPath}`
+  }
+
+  const formatDate = (dateString?: string) => {
+    if (!dateString) return "—"
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
   }
 
   React.useEffect(() => {
@@ -47,6 +81,7 @@ export default function NewsSection() {
       try {
         setLoading(true)
         setError(null)
+<<<<<<< HEAD
         
         const response = await fetch('/api/news/published?per_page=12')
         
@@ -74,6 +109,31 @@ export default function NewsSection() {
       } catch (err) {
         console.error('Error fetching news:', err)
         setError(err instanceof Error ? err.message : 'An error occurred')
+=======
+
+        const response = await fetch("/api/news/published?per_page=12")
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        const result = await response.json()
+
+        if (result.success) {
+          let newsData: NewsArticle[] = []
+
+          if (Array.isArray(result.data?.data)) {
+            newsData = result.data.data
+          } else if (Array.isArray(result.data)) {
+            newsData = result.data
+          }
+
+          setNews(newsData)
+        } else {
+          throw new Error(result.message || "Failed to fetch news")
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "An error occurred")
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
       } finally {
         setLoading(false)
       }
@@ -84,6 +144,7 @@ export default function NewsSection() {
 
   React.useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
+<<<<<<< HEAD
       if (e.key === 'Escape') setSelectedArticle(null)
     }
     window.addEventListener('keydown', handleEscape)
@@ -155,6 +216,56 @@ export default function NewsSection() {
               </h3>
               <p className="text-gray-600 text-lg">Check back later for community updates and stories.</p>
             </motion.div>
+=======
+      if (e.key === "Escape") setSelectedArticle(null)
+    }
+    window.addEventListener("keydown", handleEscape)
+    return () => window.removeEventListener("keydown", handleEscape)
+  }, [])
+
+  React.useEffect(() => {
+    document.body.style.overflow = selectedArticle ? "hidden" : "unset"
+    return () => {
+      document.body.style.overflow = "unset"
+    }
+  }, [selectedArticle])
+
+  return (
+    <>
+      <div className="py-16 px-4 sm:px-6 lg:px-8 bg-linear-to-br from-red-50 to-orange-50">
+        <div className="max-w-7xl mx-auto">
+
+          {loading ? (
+            <div className="flex items-center justify-center py-20">
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                className="w-16 h-16 border-4 border-transparent border-t-red-500 border-r-yellow-500 border-b-yellow-500 rounded-full"
+              />
+            </div>
+          ) : error ? (
+            <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="text-center py-16"
+          >
+            <div className="w-20 h-20 bg-linear-to-r from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl">
+              <AlertTriangle className="w-10 h-10 text-white" />
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">Unable to Load Announcements</h3>
+            <p className="text-red-700 mb-2 font-semibold text-lg">{error}</p>
+            <p className="text-gray-600 mb-6 text-sm max-w-md mx-auto">
+              There was an issue connecting to the server. Please check your connection and try again.
+            </p>
+          </motion.div>
+          ) : news.length === 0 ? (
+            <div className="text-center py-20">
+              <Newspaper className="w-12 h-12 mx-auto text-gray-400 mb-4" />
+              <p className="text-gray-600 text-lg">
+                No news available at the moment.
+              </p>
+            </div>
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {news.map((article, index) => (
@@ -162,6 +273,7 @@ export default function NewsSection() {
                   key={article.id}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
+<<<<<<< HEAD
                   transition={{ delay: index * 0.1, duration: 0.5 }}
                   viewport={{ once: true }}
                   whileHover={{ y: -12, scale: 1.02 }}
@@ -177,10 +289,24 @@ export default function NewsSection() {
                       src={getImageUrl(article.image)}
                       alt={article.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+=======
+                  transition={{ delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -10 }}
+                  onClick={() => setSelectedArticle(article)}
+                  className="cursor-pointer bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl border"
+                >
+                  <div className="relative h-56 bg-gray-100">
+                    <img
+                      src={getImageUrl(article.image)}
+                      alt={article.title}
+                      className="w-full h-full object-cover"
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
                       onError={(e) => {
                         e.currentTarget.src = "/placeholder.svg"
                       }}
                     />
+<<<<<<< HEAD
                     {/* Category Badge */}
                     <div className="absolute top-4 left-4">
                       <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase bg-gradient-to-tl from-yellow-600 via-red-700 to-red-900 text-white shadow-lg">
@@ -215,6 +341,25 @@ export default function NewsSection() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
                     </motion.div>
+=======
+                  </div>
+
+                  <div className="p-6">
+                    <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
+                      <Clock className="w-4 h-4" />
+                      {formatDate(article.published_at || article.created_at)}
+                    </div>
+
+                    <h3 className="text-xl font-bold mb-2 line-clamp-2">
+                      {article.title}
+                    </h3>
+
+                    <p className="text-gray-600 line-clamp-3">
+                      {article.content?.substring(0, 150) ||
+                        "No preview available."}
+                      …
+                    </p>
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
                   </div>
                 </motion.div>
               ))}
@@ -223,7 +368,10 @@ export default function NewsSection() {
         </div>
       </div>
 
+<<<<<<< HEAD
       {/* Modal */}
+=======
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
       <AnimatePresence>
         {selectedArticle && (
           <motion.div
@@ -231,6 +379,7 @@ export default function NewsSection() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedArticle(null)}
+<<<<<<< HEAD
             className="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto"
           >
             <motion.div
@@ -325,6 +474,32 @@ export default function NewsSection() {
                 >
                   Close
                 </motion.button>
+=======
+            className="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="pointer-events-auto bg-white rounded-3xl max-w-2xl w-full overflow-hidden"
+            >
+              <div className="p-8">
+                <h2 className="text-3xl font-bold mb-4">
+                  {selectedArticle.title}
+                </h2>
+
+                <p className="text-gray-700 whitespace-pre-line">
+                  {selectedArticle.content}
+                </p>
+
+                <button
+                  onClick={() => setSelectedArticle(null)}
+                  className="mt-8 px-6 py-3 bg-red-700 text-white rounded-full"
+                >
+                  Close
+                </button>
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
               </div>
             </motion.div>
           </motion.div>
@@ -332,4 +507,8 @@ export default function NewsSection() {
       </AnimatePresence>
     </>
   )
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55

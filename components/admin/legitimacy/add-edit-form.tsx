@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { toast } from "@/components/ui/use-toast"
+<<<<<<< HEAD
 import { Plus, X } from "lucide-react"
 
 interface User {
@@ -16,11 +17,18 @@ interface User {
   email: string
   fraternity_number: string
 }
+=======
+import { Plus, Trash2, X } from "lucide-react"
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
 
 interface Signatory {
   id?: number
   name: string
+<<<<<<< HEAD
   role?: string
+=======
+  role?: "approved" | "noted" | "reviewed" | "verified" | "witnessed"
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
   signed_date?: string
   signature_file?: File | null
   signature_url?: string
@@ -58,6 +66,7 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
     signatories: [],
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+<<<<<<< HEAD
   const [users, setUsers] = useState<User[]>([])
   const [loadingUsers, setLoadingUsers] = useState(false)
   const [deletedSignatoryIds, setDeletedSignatoryIds] = useState<number[]>([])
@@ -90,6 +99,11 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
     if (mode === "edit" && initialData) {
       const imageBaseUrl = process.env.NEXT_PUBLIC_IMAGE_URL || ""
       
+=======
+
+  useEffect(() => {
+    if (mode === "edit" && initialData) {
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
       setForm({
         alias: initialData.alias,
         chapter: initialData.chapter,
@@ -102,6 +116,7 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
           initialData.signatories?.map((sig) => ({
             id: sig.id,
             name: sig.name,
+<<<<<<< HEAD
             role: sig.role || "",
             signed_date: sig.signed_date || "",
             signature_file: null,
@@ -109,6 +124,14 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
           })) || [],
       })
       setDeletedSignatoryIds([])
+=======
+            role: sig.role || undefined,
+            signed_date: sig.signed_date || "",
+            signature_file: null,
+            signature_url: sig.signature_url ? `${process.env.NEXT_PUBLIC_IMAGE_URL}${sig.signature_url}` : null,
+          })) || [],
+      })
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
     } else {
       setForm({
         alias: "",
@@ -120,9 +143,14 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
         certificate_date: "",
         signatories: [],
       })
+<<<<<<< HEAD
       setDeletedSignatoryIds([])
     }
   }, [mode, initialData, isOpen])
+=======
+    }
+  }, [mode, initialData])
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
 
   const handleSignatoryChange = (index: number, key: keyof Signatory, value: string | File) => {
     const updated = [...form.signatories]
@@ -138,6 +166,7 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
   }
 
   const removeSignatory = (index: number) => {
+<<<<<<< HEAD
     const signatory = form.signatories[index]
     
     // If the signatory has an ID, track it for deletion
@@ -145,17 +174,23 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
       setDeletedSignatoryIds([...deletedSignatoryIds, signatory.id])
     }
     
+=======
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
     const updated = form.signatories.filter((_, i) => i !== index)
     setForm({ ...form, signatories: updated })
   }
 
   const handleSubmit = async () => {
+<<<<<<< HEAD
     // Validation
+=======
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
     if (!form.alias || !form.chapter || !form.position || !form.fraternity_number || !form.certificate_date) {
       toast({ title: "Error", description: "Please fill all required fields.", variant: "destructive" })
       return
     }
 
+<<<<<<< HEAD
     // Validate fraternity number exists in users list (for create mode)
     if (mode === "create") {
       const userExists = users.find(u => u.fraternity_number === form.fraternity_number)
@@ -169,6 +204,8 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
       }
     }
 
+=======
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
     setIsSubmitting(true)
     try {
       const url = mode === "create" ? "/api/admin/legitimacy" : `/api/admin/legitimacy/${initialData?.id}`
@@ -183,6 +220,7 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
       payload.append("certificate_date", form.certificate_date)
       payload.append("admin_note", form.admin_note || "")
 
+<<<<<<< HEAD
       // Add deleted signatory IDs for update mode
       if (mode === "edit" && deletedSignatoryIds.length > 0) {
         deletedSignatoryIds.forEach((id, index) => {
@@ -201,6 +239,14 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
           if (sig.signature_file instanceof File) {
             payload.append(`signatories[${i}][signature_file]`, sig.signature_file)
           }
+=======
+      form.signatories.forEach((sig, i) => {
+        payload.append(`signatories[${i}][name]`, sig.name)
+        if (sig.role) payload.append(`signatories[${i}][role]`, sig.role)
+        if (sig.signed_date) payload.append(`signatories[${i}][signed_date]`, sig.signed_date)
+        if (sig.signature_file instanceof File) {
+          payload.append(`signatories[${i}][signature_file]`, sig.signature_file)
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
         }
       })
 
@@ -219,11 +265,15 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
         onSubmitSuccess()
         onClose()
       } else {
+<<<<<<< HEAD
         toast({ 
           title: "Error", 
           description: data.message || data.errors?.fraternity_number?.[0] || "Failed to save.", 
           variant: "destructive" 
         })
+=======
+        toast({ title: "Error", description: data.message || "Failed to save.", variant: "destructive" })
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
       }
     } catch (error) {
       console.error(error)
@@ -232,7 +282,11 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
       setIsSubmitting(false)
     }
   }
+<<<<<<< HEAD
 
+=======
+  console.log(initialData)
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="sm:max-w-2xl w-full">
@@ -240,6 +294,7 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
           <DialogTitle>{mode === "create" ? "Create Legitimacy Request" : "Edit Legitimacy Request"}</DialogTitle>
         </DialogHeader>
 
+<<<<<<< HEAD
         <ScrollArea className="max-h-[60vh] pr-4">
           <div className="space-y-4">
             {/* Main Fields */}
@@ -439,18 +494,142 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
                 <Plus className="w-4 h-4" /> Add Signatory
               </Button>
             </div>
+=======
+        <ScrollArea className="max-h-[60vh] space-y-4">
+          {/* Main Fields */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <Label>Alias</Label>
+              <Input value={form.alias} onChange={(e) => setForm({ ...form, alias: e.target.value })} />
+            </div>
+            <div>
+              <Label>Chapter</Label>
+              <Input value={form.chapter} onChange={(e) => setForm({ ...form, chapter: e.target.value })} />
+            </div>
+            <div>
+              <Label>Position</Label>
+              <Input value={form.position} onChange={(e) => setForm({ ...form, position: e.target.value })} />
+            </div>
+            <div>
+              <Label>Fraternity Number</Label>
+              <Input value={form.fraternity_number} onChange={(e) => setForm({ ...form, fraternity_number: e.target.value })} />
+            </div>
+            <div>
+              <Label>Status</Label>
+              <select
+                className="border rounded px-3 py-2 w-full mb-2"
+                value={form.status}
+                onChange={(e) => setForm({ ...form, status: e.target.value as Legitimacy["status"] })}
+              >
+                <option value="pending">Pending</option>
+                <option value="approved">Approved</option>
+                <option value="rejected">Rejected</option>
+              </select>
+            </div>
+            <div>
+              <Label>Certificate Date</Label>
+              <Input type="date" value={form.certificate_date || ""} onChange={(e) => setForm({ ...form, certificate_date: e.target.value })} />
+            </div>
+          </div>
+
+          <div>
+            <Label>Admin Note</Label>
+            <Textarea value={form.admin_note || ""} onChange={(e) => setForm({ ...form, admin_note: e.target.value })} className="mb-2" />
+          </div>
+
+          {/* Signatories */}
+          <div>
+            <Label>Signatories</Label>
+            {form.signatories.map((sig, idx) => (
+              <div key={sig.id ?? idx} className="flex flex-col gap-4 mb-6 p-4 border rounded-md bg-gray-50">
+                <div className="flex items-center justify-between">
+                  <div className="flex-1">
+                    <Label htmlFor={`signatory-name-${idx}`}>Name</Label>
+                    <Input
+                      id={`signatory-name-${idx}`}
+                      placeholder="Name"
+                      value={sig.name}
+                      onChange={(e) => handleSignatoryChange(idx, "name", e.target.value)}
+                    />
+                  </div>
+                  <Button variant="ghost" className="text-red-500 p-2 ml-2" onClick={() => removeSignatory(idx)} aria-label="Remove signatory">
+                    <X className="w-4 h-4" />
+                  </Button>
+                </div>
+
+                {/* Role */}
+                <div>
+                  <Label htmlFor={`signatory-role-${idx}`}>Role</Label>
+                  <Input
+                    id={`signatory-role-${idx}`}
+                    placeholder="Role"
+                    value={sig.role || ""}
+                    onChange={(e) => handleSignatoryChange(idx, "role", e.target.value)}
+                  />
+                </div>
+
+                {/* Date */}
+                <div>
+                  <Label htmlFor={`signatory-date-${idx}`}>Signed Date</Label>
+                  <Input
+                    id={`signatory-date-${idx}`}
+                    type="date"
+                    value={sig.signed_date || ""}
+                    onChange={(e) => handleSignatoryChange(idx, "signed_date", e.target.value)}
+                  />
+                </div>
+
+                {/* File Upload */}
+                <div>
+                  <Label htmlFor={`signatory-file-${idx}`}>Signature File</Label>
+                  <Input
+                    id={`signatory-file-${idx}`}
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => e.target.files?.[0] && handleSignatoryChange(idx, "signature_file", e.target.files[0])}
+                  />
+                </div>
+
+                {/* Preview */}
+                {sig.signature_url && (
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={sig.signature_url}
+                      alt={`Signature of ${sig.name || "signatory"}`}
+                      className="w-40 h-24 object-contain border rounded-md bg-white"
+                    />
+                  </div>
+                )}
+              </div>
+            ))}
+
+            <Button variant="outline" onClick={addSignatory} className="mt-2 flex items-center gap-2">
+              <Plus className="w-4 h-4" /> Add Signatory
+            </Button>
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
           </div>
         </ScrollArea>
 
         <DialogFooter className="mt-4 flex justify-end gap-2">
+<<<<<<< HEAD
           <Button type="button" variant="secondary" onClick={onClose}>
             Cancel
           </Button>
           <Button type="button" onClick={handleSubmit} disabled={isSubmitting}>
+=======
+          <Button variant="secondary" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button onClick={handleSubmit} disabled={isSubmitting}>
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
             {isSubmitting ? "Saving..." : "Save"}
           </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   )
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55

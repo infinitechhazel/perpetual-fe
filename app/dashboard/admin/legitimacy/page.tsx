@@ -1,7 +1,11 @@
 "use client"
 
 import { useState, useEffect } from "react"
+<<<<<<< HEAD
 import { Search, Filter, Eye, Edit, Trash2, ChevronRight, ChevronLeft, Printer } from "lucide-react"
+=======
+import { Search, Filter, Eye, Edit, Trash2, ChevronRight, ChevronLeft } from "lucide-react"
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
 import AdminLayout from "@/components/adminLayout"
 import { useAuth } from "@/hooks/useAuth"
 import { useToast } from "@/components/ui/use-toast"
@@ -129,6 +133,7 @@ export default function AdminLegitimacyPage() {
     setIsDeleteOpen(true)
   }
 
+<<<<<<< HEAD
   const handlePrint = async (app: LegitimacyRequest) => {
     try {
       const response = await fetch(`/api/admin/legitimacy/${app.id}/pdf`, {
@@ -168,6 +173,8 @@ export default function AdminLegitimacyPage() {
     }
   }
 
+=======
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
   const confirmDelete = async () => {
     if (!deleteTarget) return
     try {
@@ -217,7 +224,11 @@ export default function AdminLegitimacyPage() {
               <h1 className="text-2xl font-bold text-gray-900">Certificate of Legitimacy Applications</h1>
               <p className="text-sm text-gray-500">Manage all applications</p>
             </div>
+<<<<<<< HEAD
             <button onClick={openCreateModal} className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition-colors">
+=======
+            <button onClick={openCreateModal} className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700">
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
               + New Application
             </button>
           </div>
@@ -301,6 +312,7 @@ export default function AdminLegitimacyPage() {
                         </span>
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-500">{app.certificate_date ? formatDate(app.certificate_date) : "-"}</td>
+<<<<<<< HEAD
                       <td className="px-6 py-4 text-sm">
                         <div className="flex gap-2">
                           <button
@@ -335,6 +347,24 @@ export default function AdminLegitimacyPage() {
                             <Trash2 className="w-4 h-4" />
                           </button>
                         </div>
+=======
+                      <td className="px-6 py-4 text-sm flex gap-2">
+                        <button
+                          onClick={() => {
+                            setSelectedApplication(app)
+                            setIsViewOpen(true)
+                          }}
+                          className="text-blue-400 p-1.5 rounded hover:bg-blue-50"
+                        >
+                          <Eye />
+                        </button>
+                        <button onClick={() => openEditModal(app)} className="text-orange-600 p-1.5 rounded hover:bg-orange-50">
+                          <Edit />
+                        </button>
+                        <button onClick={() => openDeleteModal(app)} className="text-red-600 p-1.5 rounded hover:bg-red-50">
+                          <Trash2 />
+                        </button>
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
                       </td>
                     </tr>
                   ))}
@@ -433,4 +463,8 @@ export default function AdminLegitimacyPage() {
       </div>
     </AdminLayout>
   )
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55

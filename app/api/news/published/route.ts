@@ -1,12 +1,17 @@
 import { type NextRequest, NextResponse } from "next/server"
 
+<<<<<<< HEAD
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api"
+=======
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
 
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams
     const queryString = searchParams.toString()
     
+<<<<<<< HEAD
     // Construct the full endpoint URL
     const endpoint = `${API_URL}/news/published${queryString ? `?${queryString}` : ''}`
     
@@ -14,6 +19,13 @@ export async function GET(request: NextRequest) {
     console.log("[News API] 🔍 Fetching from:", endpoint)
     console.log("[News API] 📍 Base API_URL:", API_URL)
     console.log("[News API] 🔗 Query params:", queryString)
+=======
+    // API_URL already includes /api, so just append the endpoint
+    const endpoint = `${API_URL}/news/published${queryString ? `?${queryString}` : ''}`
+    console.log("=".repeat(50))
+    console.log("[News API] 🔍 Fetching from:", endpoint)
+    console.log("[News API] 📍 API_URL:", API_URL)
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
     console.log("=".repeat(50))
 
     const response = await fetch(endpoint, {
@@ -27,6 +39,10 @@ export async function GET(request: NextRequest) {
 
     const responseText = await response.text()
     console.log("[News API] ✅ Response status:", response.status)
+<<<<<<< HEAD
+=======
+    console.log("[News API] 📄 Response headers:", Object.fromEntries(response.headers.entries()))
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
     console.log("[News API] 📝 Response preview:", responseText.substring(0, 500))
 
     if (!response.ok) {
@@ -54,7 +70,11 @@ export async function GET(request: NextRequest) {
     }
 
     const data = JSON.parse(responseText)
+<<<<<<< HEAD
     console.log("[News API] 🎉 Success! News items:", data.data?.data?.length || 0)
+=======
+    console.log("[News API] 🎉 Success! Data:", data)
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
     return NextResponse.json(data)
   } catch (error) {
     console.error("[News API] 💥 Fatal error:", error)

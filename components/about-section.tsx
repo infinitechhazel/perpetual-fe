@@ -3,7 +3,11 @@
 
 import React from "react"
 import { motion, AnimatePresence } from "framer-motion"
+<<<<<<< HEAD
 import { Users, Home, Leaf, Award, X, ZoomIn, Target, Globe } from "lucide-react"
+=======
+import { Users, Home, Leaf, Award, X, Target, Globe } from "lucide-react"
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
 
 export default function AboutSection() {
   const [isImageModalOpen, setIsImageModalOpen] = React.useState(false)
@@ -40,9 +44,15 @@ export default function AboutSection() {
 
   return (
 
+<<<<<<< HEAD
     <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-red-50 via-orange-50 to-green-50" />
+=======
+    <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-linear-to-br from-red-50 to-orange-50">
+      {/* Gradient Background */}
+      <div className="absolute inset-0" />
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -64,10 +74,17 @@ export default function AboutSection() {
                   whileHover={{ y: -8, scale: 1.05 }}
                   className="p-8 rounded-2xl bg-white/80 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all border-2 border-transparent hover:border-gradient-to-r hover:from-red-400 hover:via-orange-400 hover:to-green-400 text-center group"
                 >
+<<<<<<< HEAD
                   <div className="w-16 h-16 rounded-full bg-gradient-to-br from-yellow-400 via-red-600 to-[#800000]/90 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                     <Icon className="w-8 h-8 text-white" />
                   </div>
                   <div className="text-4xl font-bold bg-gradient-to-r from-green-600 via-red-600 to-[#800000]/90 bg-clip-text text-transparent mb-2">
+=======
+                  <div className="w-16 h-16 rounded-full bg-linear-to-br from-yellow-400 via-red-600 to-[#800000]/90 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    <Icon className="w-8 h-8 text-white" />
+                  </div>
+                  <div className="text-4xl font-bold bg-linear-to-r from-green-600 via-red-600 to-[#800000]/90 bg-clip-text text-transparent mb-2">
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
                     {stat.number}
                   </div>
                   <div className="text-sm font-medium text-gray-600">{stat.label}</div>
@@ -87,18 +104,30 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               className="inline-block mb-4"
             >
+<<<<<<< HEAD
               <span className="px-4 py-2 rounded-full bg-gradient-to-r from-red-800 via-red-800 to-yellow-500/80 text-sm font-semibold bg-gradient-to-r from-green-600 via-red-600 to-[#800000]/90 bg-clip-text text-transparent">
+=======
+              <span className="px-4 py-2 rounded-full bg-linear-to-r from-red-800 via-red-800 to-yellow-500/80 text-sm font-semibold bg-linear-to-r from-green-600 via-red-600 to-[#800000]/90 bg-clip-text text-transparent">
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
                 Our Community
               </span>
             </motion.div>
 
             <h2 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+<<<<<<< HEAD
               <span className="bg-gradient-to-r from-yellow-600 via-red-600 to-red-900 bg-clip-text text-transparent">
+=======
+              <span className="bg-linear-to-r from-yellow-600 via-red-600 to-red-900 bg-clip-text text-transparent">
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
                 Perpetual Village
               </span>
             </h2>
 
+<<<<<<< HEAD
             <div className="w-20 h-1.5 bg-gradient-to-r from-yellow-600 via-red-600 to-red-900 rounded-full mb-6" />
+=======
+            <div className="w-20 h-1.5 bg-linear-to-r from-yellow-600 via-red-600 to-red-900 rounded-full mb-6" />
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
 
             <p className="text-lg text-gray-700 mb-6 leading-relaxed">
               Nestled in the bustling city of Las Piñas, Perpetual Village is a thriving urban community
@@ -107,7 +136,11 @@ export default function AboutSection() {
             </p>
 
             <p className="text-lg text-gray-700 mb-8 leading-relaxed">
+<<<<<<< HEAD
               Our barangay is more than just a place—it's a home where families grow, businesses flourish,
+=======
+              Our barangay is more than just a place it&apos;s a home where families grow, businesses flourish,
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
               and every voice matters. We take pride in:
             </p>
 
@@ -120,7 +153,11 @@ export default function AboutSection() {
                   transition={{ delay: i * 0.15, duration: 0.5 }}
                   className="flex items-start gap-4 group"
                 >
+<<<<<<< HEAD
                   <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-yellow-400 via-red-600 to-[#800000]/90 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform shadow-md">
+=======
+                  <div className="w-8 h-8 rounded-lg bg-linear-to-br from-yellow-400 via-red-600 to-[#800000]/90 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform shadow-md">
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
                     <span className="text-white text-lg font-bold">✓</span>
                   </div>
                   <span className="text-gray-800 text-lg font-medium">{item}</span>
@@ -134,13 +171,18 @@ export default function AboutSection() {
               transition={{ delay: 0.6 }}
               className="mt-10"
             >
+<<<<<<< HEAD
               <button className="px-8 py-4 rounded-full bg-gradient-to-tl from-yellow-600 via-red-700 to-red-900 text-white font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all">
+=======
+              <button className="px-8 py-4 rounded-full bg-linear-to-tl from-yellow-600 via-red-700 to-red-900 text-white font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all">
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
                 Learn More About Us
               </button>
             </motion.div>
           </motion.div>
         </div>
 
+<<<<<<< HEAD
 
 
         {/* Goals Section - FULL WIDTH BACKGROUND */}
@@ -403,6 +445,8 @@ export default function AboutSection() {
         </div>
 
 
+=======
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
         {/* Mission & Vision Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -416,13 +460,21 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               className="inline-block mb-4"
             >
+<<<<<<< HEAD
               <span className="px-4 py-2 rounded-full bg-white/60 backdrop-blur-sm text-sm font-semibold bg-gradient-to-r from-green-600 via-red-600 to-[#800000]/90 bg-clip-text text-transparent">
+=======
+              <span className="px-4 py-2 rounded-full bg-white/60 backdrop-blur-sm text-sm font-semibold bg-linear-to-r from-green-600 via-red-600 to-[#800000]/90 bg-clip-text text-transparent">
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
                 Our Purpose
               </span>
             </motion.div>
 
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
+<<<<<<< HEAD
               <span className="bg-gradient-to-r from-yellow-600 via-red-600 to-red-900 bg-clip-text text-transparent">
+=======
+              <span className="bg-linear-to-r from-yellow-600 via-red-600 to-red-900 bg-clip-text text-transparent">
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
                 Mission & Vision
               </span>
             </h2>
@@ -435,7 +487,11 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
               whileHover={{ scale: 1.08 }}
+<<<<<<< HEAD
               className="bg-gradient-to-br from-yellow-500 via-red-600 to-[#800000]/90 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 p-8 md:p-10"
+=======
+              className="bg-linear-to-br from-yellow-500 via-red-600 to-[#800000]/90 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 p-8 md:p-10"
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
             >
               <div className="mb-6 inline-flex items-center justify-center w-16 h-16 rounded-xl backdrop-blur-sm bg-white/20">
                 <Target className="w-8 h-8 text-orange-200" />
@@ -454,7 +510,11 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
               whileHover={{ scale: 1.08 }}
+<<<<<<< HEAD
               className="bg-gradient-to-br from-yellow-500 via-red-600 to-[#800000]/90 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 p-8 md:p-10"
+=======
+              className="bg-linear-to-br from-yellow-500 via-red-600 to-[#800000]/90 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 p-8 md:p-10"
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
             >
               <div className="mb-6 inline-flex items-center justify-center w-16 h-16 rounded-xl backdrop-blur-sm bg-white/20">
                 <Globe className="w-8 h-8 text-orange-200" />
@@ -468,6 +528,7 @@ export default function AboutSection() {
             </motion.div>
           </div>
         </motion.div>
+<<<<<<< HEAD
         {/* Objectives Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -665,6 +726,13 @@ export default function AboutSection() {
       {/* Decorative Elements */}
       <div className="absolute top-10 right-10 w-32 h-32 bg-gradient-to-br from-red-300/20 via-orange-300/20 to-green-300/20 rounded-full blur-3xl" />
       <div className="absolute bottom-10 left-10 w-40 h-40 bg-gradient-to-br from-green-300/20 via-orange-300/20 to-red-300/20 rounded-full blur-3xl" />
+=======
+      </div>
+
+      {/* Decorative Elements */}
+      <div className="absolute top-10 right-10 w-32 h-32 bg-linear-to-br from-red-300/20 via-orange-300/20 to-green-300/20 rounded-full blur-3xl" />
+      <div className="absolute bottom-10 left-10 w-40 h-40 bg-linear-to-br from-green-300/20 via-orange-300/20 to-red-300/20 rounded-full blur-3xl" />
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
 
       {/* Full Screen Image Modal */}
       <AnimatePresence>

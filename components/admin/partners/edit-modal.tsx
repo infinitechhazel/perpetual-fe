@@ -5,7 +5,11 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
+<<<<<<< HEAD
 import { X } from "lucide-react"
+=======
+import { Select } from "@/components/ui/select"
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
 
 interface BusinessPartner {
   id?: number | null
@@ -28,6 +32,7 @@ interface AdminBusinessModalProps {
 
 export default function AdminBusinessModal({ isOpen, mode, initialData, onClose, onSubmitSuccess }: AdminBusinessModalProps) {
   const { toast } = useToast()
+<<<<<<< HEAD
   const [formData, setFormData] = useState<BusinessPartner>({
     business_name: "",
     website_link: "",
@@ -57,6 +62,13 @@ export default function AdminBusinessModal({ isOpen, mode, initialData, onClose,
     const cleanPhotoPath = photoPath.startsWith('/') ? photoPath : `/${photoPath}`
     return `${baseUrl}${cleanPhotoPath}`
   }
+=======
+  const [formData, setFormData] = useState<BusinessPartner>(
+    initialData || { business_name: "", website_link: "", category: "", description: "", status: "pending", admin_note: "" },
+  )
+  const [file, setFile] = useState<File | null>(null)
+  const [loading, setLoading] = useState(false)
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
 
   useEffect(() => {
     if (mode === "edit" && initialData) {
@@ -68,6 +80,7 @@ export default function AdminBusinessModal({ isOpen, mode, initialData, onClose,
         category: initialData.category || "",
         status: initialData.status || "pending",
         admin_note: initialData.admin_note || "",
+<<<<<<< HEAD
       })
       
       // Set existing photo path and preview
@@ -82,18 +95,33 @@ export default function AdminBusinessModal({ isOpen, mode, initialData, onClose,
     } else {
       // Reset for create mode
       setFormData({
+=======
+        photo: initialData.photo ? `${process.env.NEXT_PUBLIC_IMAGE_URL}${initialData.photo}` : null,
+      })
+    } else {
+      // Reset for create mode
+      setFormData({
+        id: null,
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
         business_name: "",
         website_link: "",
         description: "",
         category: "",
         status: "pending",
         admin_note: "",
+<<<<<<< HEAD
       })
       setExistingPhotoPath(null)
       setPreviewUrl(null)
     }
     setFile(null)
   }, [mode, initialData, isOpen])
+=======
+        photo: null,
+      })
+    }
+  }, [mode, initialData])
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -101,6 +129,7 @@ export default function AdminBusinessModal({ isOpen, mode, initialData, onClose,
   }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+<<<<<<< HEAD
     if (e.target.files && e.target.files.length > 0) {
       const selectedFile = e.target.files[0]
       setFile(selectedFile)
@@ -133,10 +162,17 @@ export default function AdminBusinessModal({ isOpen, mode, initialData, onClose,
       return
     }
 
+=======
+    if (e.target.files && e.target.files.length > 0) setFile(e.target.files[0])
+  }
+
+  const handleSubmit = async () => {
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
     try {
       setLoading(true)
       const payload = new FormData()
 
+<<<<<<< HEAD
       // Add all text fields to FormData
       payload.append("business_name", formData.business_name)
       if (formData.website_link) payload.append("website_link", formData.website_link)
@@ -164,11 +200,24 @@ export default function AdminBusinessModal({ isOpen, mode, initialData, onClose,
       console.log("FormData contents:")
       for (const [key, value] of payload.entries()) {
         console.log(`  ${key}:`, value instanceof File ? `[File: ${value.name}, ${value.size} bytes]` : value)
+=======
+      // Append all fields except photo
+      Object.entries(formData).forEach(([key, value]) => {
+        if (key !== "photo" && value !== undefined && value !== null) {
+          payload.append(key, value as string)
+        }
+      })
+
+      // Append new photo only if user selected a file
+      if (file) {
+        payload.append("photo", file)
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
       }
 
       const url = mode === "create" ? `/api/admin/business-partners` : `/api/admin/business-partners/${formData.id}`
       const method = mode === "create" ? "POST" : "PUT"
 
+<<<<<<< HEAD
       const res = await fetch(url, { 
         method, 
         body: payload, 
@@ -184,12 +233,20 @@ export default function AdminBusinessModal({ isOpen, mode, initialData, onClose,
           title: "Success", 
           description: data.message || (mode === "create" ? "Business created successfully" : "Business updated successfully")
         })
+=======
+      const res = await fetch(url, { method, body: payload, credentials: "include" })
+      const data = await res.json()
+
+      if (res.ok && data.success) {
+        toast({ title: "Success", description: data.message })
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
         onSubmitSuccess()
         onClose()
       } else {
         toast({
           variant: "destructive",
           title: "Error",
+<<<<<<< HEAD
           description: data.message || data.error || "Failed to save business",
         })
       }
@@ -200,6 +257,14 @@ export default function AdminBusinessModal({ isOpen, mode, initialData, onClose,
         title: "Error", 
         description: err instanceof Error ? err.message : "Server error occurred" 
       })
+=======
+          description: data.message || "Failed",
+        })
+      }
+    } catch (err) {
+      console.error(err)
+      toast({ variant: "destructive", title: "Error", description: "Server error" })
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
     } finally {
       setLoading(false)
     }
@@ -207,11 +272,16 @@ export default function AdminBusinessModal({ isOpen, mode, initialData, onClose,
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+<<<<<<< HEAD
       <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto">
+=======
+      <DialogContent className="sm:max-w-md">
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
         <DialogHeader>
           <DialogTitle>{mode === "create" ? "Add New Business Partner" : "Edit Business Partner"}</DialogTitle>
         </DialogHeader>
 
+<<<<<<< HEAD
         <div className="space-y-4 mt-2">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -249,22 +319,64 @@ export default function AdminBusinessModal({ isOpen, mode, initialData, onClose,
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+=======
+        <div className="space-y-3 mt-2">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Business Name</label>
+            <Input name="business_name" value={formData.business_name} onChange={handleChange} />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Website Link</label>
+            <Input name="website_link" value={formData.website_link || ""} onChange={handleChange} />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Category</label>
+            <Input name="category" value={formData.category || ""} onChange={handleChange} />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Description</label>
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
             <textarea
               name="description"
               value={formData.description || ""}
               onChange={handleChange}
+<<<<<<< HEAD
               className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent min-h-[80px]"
               placeholder="Brief description of the business"
+=======
+              className="w-full p-2 border border-gray-300 rounded-lg"
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
             />
           </div>
 
           <div>
+<<<<<<< HEAD
             <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+=======
+            <label className="block text-sm font-medium text-gray-700">Admin Note</label>
+            <textarea
+              name="admin_note"
+              value={formData.admin_note || ""}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded-lg"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Status</label>
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
             <select
               name="status"
               value={formData.status || "pending"}
               onChange={handleChange}
+<<<<<<< HEAD
               className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+=======
+              className="w-full border border-gray-300 rounded-lg p-2"
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
             >
               <option value="pending">Pending</option>
               <option value="approved">Approved</option>
@@ -273,6 +385,7 @@ export default function AdminBusinessModal({ isOpen, mode, initialData, onClose,
           </div>
 
           <div>
+<<<<<<< HEAD
             <label className="block text-sm font-medium text-gray-700 mb-1">Admin Note</label>
             <textarea
               name="admin_note"
@@ -322,10 +435,27 @@ export default function AdminBusinessModal({ isOpen, mode, initialData, onClose,
             </Button>
             <Button onClick={handleSubmit} disabled={loading || !formData.business_name.trim()}>
               {loading ? "Saving..." : mode === "create" ? "Add Business" : "Update Business"}
+=======
+            <label className="block text-sm font-medium text-gray-700">Photo</label>
+            <Input type="file" onChange={handleFileChange} />
+            {formData.photo && !file && <img src={`${formData.photo}`} alt="Current" className="w-24 h-24 object-cover mt-2 rounded" />}
+          </div>
+
+          <div className="flex justify-end gap-2 mt-4">
+            <Button variant="outline" onClick={onClose}>
+              Cancel
+            </Button>
+            <Button onClick={handleSubmit} disabled={loading}>
+              {mode === "create" ? "Add" : "Update"}
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
             </Button>
           </div>
         </div>
       </DialogContent>
     </Dialog>
   )
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
