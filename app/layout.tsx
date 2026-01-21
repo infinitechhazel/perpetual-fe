@@ -376,7 +376,7 @@ export default function RootLayout({
         <link rel="alternate" hrefLang="fil-ph" href="https://pamplonatres-laspinas.vercel.app/fil" />
         <link rel="alternate" hrefLang="x-default" href="https://pamplonatres-laspinas.vercel.app/" />
       </head>
-      <body className={`${geist.className} antialiased bg-linear-to-br from-red-50 to-orange-50`}>
+      <body className={`${geist.className} antialiased bg-linear-to-br from-red-50 via-orange-50 to-green-50`}>
         <ServiceWorkerProvider />
         {children}
         <Toaster />

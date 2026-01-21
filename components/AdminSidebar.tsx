@@ -23,22 +23,15 @@ import {
   ChevronUp,
   ChevronLeft,
   ChevronRight,
-} from "lucide-react";
-import { authClient } from "@/lib/auth";
-import { useToast } from "@/components/ui/use-toast";
+} from "lucide-react"
+import { authClient } from "@/lib/auth"
+import { useToast } from "@/components/ui/use-toast"
 
-export default function AdminSidebar({
-  isCollapsed,
-  setIsCollapsed,
-}: {
-  isCollapsed: boolean;
-  setIsCollapsed: (v: boolean) => void;
-}) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const { toast } = useToast();
-  const [isLoggingOut, setIsLoggingOut] = React.useState(false);
-
+export default function AdminSidebar({ isCollapsed, setIsCollapsed }: { isCollapsed: boolean; setIsCollapsed: (v: boolean) => void }) {
+  const router = useRouter()
+  const pathname = usePathname()
+  const { toast } = useToast()
+  const [isLoggingOut, setIsLoggingOut] = React.useState(false)
 
   // Dropdown state
   const [expandedSections, setExpandedSections] = React.useState({
@@ -47,17 +40,17 @@ export default function AdminSidebar({
     health: false,
     publicSafety: false,
     aboutUs: false,
-  });
+  })
 
   const toggleSection = (section: keyof typeof expandedSections) => {
     setExpandedSections((prev) => ({
       ...prev,
       [section]: !prev[section],
-    }));
-  };
+    }))
+  }
 
   const toggleSidebar = () => {
-    setIsCollapsed(!isCollapsed);
+    setIsCollapsed(!isCollapsed)
 
     if (!isCollapsed) {
       setExpandedSections({
@@ -66,50 +59,48 @@ export default function AdminSidebar({
         health: false,
         publicSafety: false,
         aboutUs: false,
-      });
+      })
     }
-  };
+  }
 
   const handleLogout = async (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+    e.preventDefault()
+    e.stopPropagation()
 
-    setIsLoggingOut(true);
+    setIsLoggingOut(true)
 
     try {
-      await authClient.logout();
+      await authClient.logout()
 
       toast({
         title: "✓ Logged Out Successfully",
         description: "You have been securely logged out.",
         className: "bg-green-50 border-green-200",
         duration: 2000,
-      });
+      })
 
-      setTimeout(() => router.push("/login"), 500);
+      setTimeout(() => router.push("/login"), 500)
     } catch (error) {
-      console.error("Logout error:", error);
+      console.error("Logout error:", error)
 
       toast({
         variant: "destructive",
         title: "Logout Failed",
         description: "An error occurred. Please try again.",
-      });
+      })
 
-      setIsLoggingOut(false);
+      setIsLoggingOut(false)
     }
-  };
+  }
 
   const isActive = (path: string) => {
     if (path === "/dashboard/admin") {
-      return pathname === path;
+      return pathname === path
     }
-    return pathname === path || pathname.startsWith(path + "/");
-  };
+    return pathname === path || pathname.startsWith(path + "/")
+  }
 
-
-  const isSectionActive = (items: { path: string }[]) =>
-    items.some(item => isActive(item.path));
+  const isSectionActive = (items: { path: string }[]) => items.some((item) => isActive(item.path))
 
   const navigationItems = [
     { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard/admin" },
@@ -159,22 +150,22 @@ export default function AdminSidebar({
         {/* Main Navigation */}
         <nav className="space-y-1 flex-1 py-2 border-t border-white/20">
           {navigationItems.map((item, index) => {
-            const active = isActive(item.path);
+            const active = isActive(item.path)
 
             return (
               <div key={index} className="group">
                 {/* MAIN BUTTON */}
                 <button
                   onClick={() => router.push(item.path)}
-                  className={`w-full flex items-center gap-2 px-3 py-3 rounded-lg text-left transition-colors text-sm ${isCollapsed ? 'justify-center' : ''} ${active ? "bg-white/20 font-semibold shadow-lg" : "hover:bg-white/10"}`}>
+                  className={`w-full flex items-center gap-2 px-3 py-3 rounded-lg text-left transition-colors text-sm ${isCollapsed ? "justify-center" : ""} ${active ? "bg-white/20 font-semibold shadow-lg" : "hover:bg-white/10"}`}
+                >
                   <item.icon size={16} />
                   {!isCollapsed && <span className="text-sm">{item.label}</span>}
                 </button>
 
                 {/* COLLAPSED MODE FLYOUT */}
                 {isCollapsed && (
-                  <div
-                    className=" absolute left-full w-44 -translate-y-1/2 -m-5 px-3 py-2 -ml-2 bg-yellow-600 text-white text-xs font-semibold rounded-md shadow-xl opacity-0 translate-x-2 invisible pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 group-hover:visible group-hover:pointer-events-auto transition-all duration-200 ease-out z-[9999]">
+                  <div className=" absolute left-full w-44 -translate-y-1/2 -m-5 px-3 py-2 -ml-2 bg-yellow-600 text-white text-xs font-semibold rounded-md shadow-xl opacity-0 translate-x-2 invisible pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 group-hover:visible group-hover:pointer-events-auto transition-all duration-200 ease-out z-[9999]">
                     {item.label}
                   </div>
                 )}
@@ -186,41 +177,39 @@ export default function AdminSidebar({
             {/* MAIN BUTTON */}
             <button
               onClick={() => !isCollapsed && toggleSection("aboutUs")}
-              className={`w-full flex items-center justify-between gap-3 px-3 py-3 rounded-lg text-left transition-colors text-sm hover:bg-white/10 ${isaboutUsActive ? "bg-white/20 font-semibold shadow-lg" : "hover:bg-white/10"} ${isCollapsed ? "justify-center" : ""}`}>
+              className={`w-full flex items-center justify-between gap-3 px-3 py-3 rounded-lg text-left transition-colors text-sm hover:bg-white/10 ${isaboutUsActive ? "bg-white/20 font-semibold shadow-lg" : "hover:bg-white/10"} ${isCollapsed ? "justify-center" : ""}`}
+            >
               <div className="flex items-center gap-2 justify-center">
                 <FileText size={16} />
                 {!isCollapsed && (
-                  <span className={`font-semibold text-white/90 text-xs tracking-wide ${isaboutUsActive ? "text-white font-semibold" : "text-white/90"}`}>
+                  <span
+                    className={`font-semibold text-white/90 text-xs tracking-wide ${isaboutUsActive ? "text-white font-semibold" : "text-white/90"}`}
+                  >
                     ABOUT US
                   </span>
                 )}
               </div>
 
-              {!isCollapsed && (
-                expandedSections.aboutUs ? (
-                  <ChevronDown size={16} />
-                ) : (
-                  <ChevronUp size={16} />
-                )
-              )}
+              {!isCollapsed && (expandedSections.aboutUs ? <ChevronDown size={16} /> : <ChevronUp size={16} />)}
             </button>
 
             {/* NORMAL EXPANDED MODE */}
             {!isCollapsed && expandedSections.aboutUs && (
               <div className="space-y-1 pl-3 m-1">
                 {aboutUs.map((item, index) => {
-                  const active = isActive(item.path);
+                  const active = isActive(item.path)
                   return (
                     <button
                       key={index}
                       onClick={() => router.push(item.path)}
-                      className={`w-full flex items-center gap-2 p-3 py-3 rounded-lg text-left transition-colors text-xs ${active ? "bg-white/20 font-semibold shadow-lg" : "hover:bg-white/10"
-                        }`}
+                      className={`w-full flex items-center gap-2 p-3 py-3 rounded-lg text-left transition-colors text-xs ${
+                        active ? "bg-white/20 font-semibold shadow-lg" : "hover:bg-white/10"
+                      }`}
                     >
                       <item.icon size={16} />
                       <span className="text-xs">{item.label}</span>
                     </button>
-                  );
+                  )
                 })}
               </div>
             )}
@@ -232,59 +221,42 @@ export default function AdminSidebar({
                   ABOUT US
                 </span>
                 {aboutUs.map((item, index) => {
-                  const active = isActive(item.path);
+                  const active = isActive(item.path)
                   return (
                     <button
                       key={index}
                       onClick={() => router.push(item.path)}
-                      className={`w-full flex items-center gap-3 px-4 py-2 text-left text-sm transition-colors ${active ? "bg-white/20 font-semibold" : "hover:bg-white/10"
-                        }`}
+                      className={`w-full flex items-center gap-3 px-4 py-2 text-left text-sm transition-colors ${
+                        active ? "bg-white/20 font-semibold" : "hover:bg-white/10"
+                      }`}
                     >
                       <item.icon size={16} />
                       <span>{item.label}</span>
                     </button>
-                  );
+                  )
                 })}
               </div>
             )}
           </div>
 
-
           {/* Account Section */}
           <div className="group">
             {/* MAIN BUTTON */}
-            <button onClick={() => router.push("/dashboard/admin/office-contact")} className={`w-full flex items-center gap-2 px-3 py-3 rounded-lg text-left transition-colors text-sm ${isCollapsed ? "justify-center" : ""} ${isActive("/dashboard/admin/users") ? "bg-white/20 font-semibold shadow-lg" : "hover:bg-white/10"}`}>
-              <User size={16} />
-              {!isCollapsed && <span className="text-xs">Contact Us</span>}
-            </button>
-
-            {/* COLLAPSED MODE FLYOUT */}
-            {isCollapsed && (
-              <div
-                className=" absolute left-full w-44 -translate-y-1/2  -my-5 -m-2 px-3 py-2 bg-yellow-600 text-white text-xs font-semibold rounded-md shadow-xl opacity-0 translate-x-2 invisible pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 group-hover:visible group-hover:pointer-events-auto transition-all duration-200 ease-out z-[9999]">
-                Contact Us
-              </div>
-            )}
-          </div>
-
-
-          {/* Account Section */}
-          <div className="group">
-            {/* MAIN BUTTON */}
-            <button onClick={() => router.push("/dashboard/admin/users")} className={`w-full flex items-center gap-2 px-3 py-3 rounded-lg text-left transition-colors text-sm ${isCollapsed ? "justify-center" : ""} ${isActive("/dashboard/admin/users") ? "bg-white/20 font-semibold shadow-lg" : "hover:bg-white/10"}`}>
+            <button
+              onClick={() => router.push("/dashboard/admin/users")}
+              className={`w-full flex items-center gap-2 px-3 py-3 rounded-lg text-left transition-colors text-sm ${isCollapsed ? "justify-center" : ""} ${isActive("/dashboard/admin/users") ? "bg-white/20 font-semibold shadow-lg" : "hover:bg-white/10"}`}
+            >
               <User size={16} />
               {!isCollapsed && <span className="text-xs">Users</span>}
             </button>
 
             {/* COLLAPSED MODE FLYOUT */}
             {isCollapsed && (
-              <div
-                className=" absolute left-full w-44 -translate-y-1/2  -my-5 -m-2 px-3 py-2 bg-yellow-600 text-white text-xs font-semibold rounded-md shadow-xl opacity-0 translate-x-2 invisible pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 group-hover:visible group-hover:pointer-events-auto transition-all duration-200 ease-out z-[9999]">
+              <div className=" absolute left-full w-44 -translate-y-1/2  -my-5 -m-2 px-3 py-2 bg-yellow-600 text-white text-xs font-semibold rounded-md shadow-xl opacity-0 translate-x-2 invisible pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 group-hover:visible group-hover:pointer-events-auto transition-all duration-200 ease-out z-[9999]">
                 Users
               </div>
             )}
           </div>
-
         </nav>
 
         {/* Logout Section */}
@@ -292,8 +264,9 @@ export default function AdminSidebar({
           <button
             onClick={handleLogout}
             disabled={isLoggingOut}
-            className={`w-full flex items-center gap-2 px-3 py-3 rounded-lg hover:bg-red-500/20 transition-colors text-left group disabled:opacity-50 disabled:cursor-not-allowed text-sm ${isCollapsed ? 'justify-center' : ''
-              }`}
+            className={`w-full flex items-center gap-2 px-3 py-3 rounded-lg hover:bg-red-500/20 transition-colors text-left group disabled:opacity-50 disabled:cursor-not-allowed text-sm ${
+              isCollapsed ? "justify-center" : ""
+            }`}
           >
             {isLoggingOut ? (
               <>
@@ -303,16 +276,12 @@ export default function AdminSidebar({
             ) : (
               <>
                 <LogOut size={16} className="group-hover:text-red-200" />
-                {!isCollapsed && (
-                  <span className="font-medium group-hover:text-red-200">
-                    Logout
-                  </span>
-                )}
+                {!isCollapsed && <span className="font-medium group-hover:text-red-200">Logout</span>}
               </>
             )}
           </button>
         </div>
       </div>
     </aside>
-  );
+  )
 }
