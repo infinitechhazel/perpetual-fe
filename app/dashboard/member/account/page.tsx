@@ -8,7 +8,6 @@ import {
   Phone,
   MapPin,
   BadgeCheck,
-  Calendar,
 } from "lucide-react"
 
 type Member = {
@@ -26,25 +25,27 @@ type Member = {
 export default function MemberPage() {
   const [member, setMember] = useState<Member | null>(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchMember = async () => {
       try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/me`,
-          {
-            credentials: "include",
-          }
-        )
-
-        if (!res.ok) {
-          throw new Error("Unauthorized")
-        }
+        const res = await fetch("/api/me", {
+          method: "GET",
+          credentials: "include",
+        })
 
         const json = await res.json()
-        setMember(json.data)
+
+        if (!res.ok) {
+          throw new Error(json.message || "Failed to fetch user")
+        }
+
+        // Handle Laravel response structure: json.data.user
+        setMember(json.data.user)
       } catch (err) {
         console.error("Failed to fetch member", err)
+        setError(err instanceof Error ? err.message : "Failed to load profile")
       } finally {
         setLoading(false)
       }
@@ -63,11 +64,11 @@ export default function MemberPage() {
     )
   }
 
-  if (!member) {
+  if (error || !member) {
     return (
       <MemberLayout>
         <div className="py-20 text-center text-red-500">
-          Failed to load profile
+          {error || "Failed to load profile"}
         </div>
       </MemberLayout>
     )

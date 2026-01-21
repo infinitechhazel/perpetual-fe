@@ -2,11 +2,11 @@
 
 import React, { useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import {
-  Home,
-  Grid3x3,
-  Newspaper,
-  AlertTriangle,
+import { 
+  Home, 
+  Grid3x3, 
+  Newspaper, 
+  AlertTriangle, 
   User,
   Menu,
   X,
@@ -17,10 +17,10 @@ import {
   MapPin,
   Bell,
   LogOut,
-  Megaphone,
+  Megaphone, 
   NotebookText,
   ChevronUp,
-  File,
+   File,
 } from 'lucide-react';
 
 export default function MemberBottomNav() {
@@ -29,10 +29,10 @@ export default function MemberBottomNav() {
   const [showQuickAccess, setShowQuickAccess] = useState(false);
 
   const navigationItems = [
-    { icon: Home, label: 'Home', path: '/dashboard/member' },
-    { icon: Megaphone, label: 'Announcement', path: '/dashboard/member/announcement' },
-    { icon: Newspaper, label: 'News', path: '/dashboard/member/news' },
-    { icon: User, label: 'Profile', path: '/dashboard/member/account' },
+      { icon: Home, label: 'Home', path: '/dashboard/member' },
+      { icon: Megaphone, label: 'Announcement', path: '/dashboard/member/announcement' },
+      { icon: Newspaper, label: 'News', path: '/dashboard/member/news' },
+      { icon: User, label: 'Profile', path: '/dashboard/member/account' },
   ];
 
   const isActive = (path: string) => pathname === path;
@@ -43,7 +43,7 @@ export default function MemberBottomNav() {
   };
 
   return (
-    <div className="hidden fixed bottom-0 left-0 right-0 z-40">
+    <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40">
       {/* Main Bottom Navigation Bar */}
       <nav className="bg-white border-t border-gray-200 shadow-lg">
         {/* Toggle Button for Quick Access */}
@@ -64,12 +64,13 @@ export default function MemberBottomNav() {
               <button
                 key={index}
                 onClick={() => router.push(item.path)}
-                className={`flex flex-col items-center gap-1 px-3 py-2 transition-colors flex-1 ${active ? 'text-orange-600' : 'text-gray-600'
-                  }`}
+                className={`flex flex-col items-center gap-1 px-3 py-2 transition-colors flex-1 ${
+                  active ? 'text-orange-600' : 'text-gray-600'
+                }`}
               >
-                <item.icon
-                  size={22}
-                  className={active ? 'text-orange-600' : 'text-gray-600'}
+                <item.icon 
+                  size={22} 
+                  className={active ? 'text-orange-600' : 'text-gray-600'} 
                   strokeWidth={active ? 2.5 : 2}
                 />
                 <span className={`text-xs font-medium ${active ? 'text-orange-600 font-semibold' : 'text-gray-600'}`}>
