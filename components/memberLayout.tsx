@@ -16,11 +16,6 @@ export default function MemberLayout({ children }: MemberLayoutProps) {
   const [isChecking, setIsChecking] = useState(true);
   const [user, setUser] = useState<any>(null);
 
-<<<<<<< HEAD
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-
-=======
->>>>>>> d961c4d44f144ef19bb3ed9d984f12c663c610e4
   useEffect(() => {
     async function checkAuth() {
       try {
@@ -60,11 +55,7 @@ export default function MemberLayout({ children }: MemberLayoutProps) {
   // Show loading state while checking auth
   if (isChecking) {
     return (
-<<<<<<< HEAD
-      <div className="min-h-screen bg-linear-to-br from-slate-50 via-white to-slate-100 flex items-center justify-center">
-=======
       <div className="min-h-screen bg-linear-to-br from-emerald-50 via-white to-orange-50 flex items-center justify-center">
->>>>>>> d961c4d44f144ef19bb3ed9d984f12c663c610e4
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
           <p className="text-gray-600">Verifying authentication...</p>
@@ -79,24 +70,12 @@ export default function MemberLayout({ children }: MemberLayoutProps) {
   }
 
   return (
-<<<<<<< HEAD
-    <div className="min-h-screen">
-      {/* Sidebar - Desktop only */}
-      <MemberSidebar 
-        isCollapsed={isSidebarCollapsed}
-        setIsCollapsed={setIsSidebarCollapsed}
-        />
-
-      {/* Main Content */}
-      <div className={`pb-20 lg:pb-0 transition-all duration-300  ${isSidebarCollapsed ? "lg:ml-[70px]" : "lg:ml-[300px]"}  `}>
-=======
     <div className="min-h-screen bg-linear-to-br from-emerald-50 via-white to-orange-50">
       {/* Sidebar - Desktop only */}
       <MemberSidebar />
 
       {/* Main Content */}
       <div className="lg:ml-64 pb-20 lg:pb-0">
->>>>>>> d961c4d44f144ef19bb3ed9d984f12c663c610e4
         {/* Header */}
         <MemberHeader />
 

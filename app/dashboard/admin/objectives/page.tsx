@@ -1,119 +1,6 @@
 "use client"
 import { useState, useEffect } from "react"
 import {
-<<<<<<< HEAD
-  Save,
-  AlertCircle,
-  RefreshCw,
-  Target,
-  Plus,
-  Trash2
-} from "lucide-react"
-import AdminLayout from "@/components/adminLayout"
-
-interface ObjectiveCard {
-  title: string
-  content: string
-}
-
-export default function ObjectivesPage() {
-  const [loading, setLoading] = useState(true)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isEdit, setIsEdit] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [titles, setTitles] = useState<string[]>([])
-
-  const [formData, setFormData] = useState({
-    objectives_header: "",
-    objectives_title: "",
-    objectives_description: "",
-  })
-
-
-  const [cards, setCards] = useState<ObjectiveCard[]>([
-    { title: "", content: "" }
-  ])
-
-  useEffect(() => {
-    fetchObjectivesData()
-  }, [])
-
-  const fetchObjectivesData = async () => {
-    try {
-      setLoading(true)
-      setError(null)
-
-      const response = await fetch("/api/objectives")
-
-      if (response.ok) {
-        const data = await response.json()
-
-        if (data.success && data.data) {
-          setIsEdit(true)
-          setFormData({
-            objectives_header: data.data.objectives_header || "",
-            objectives_title: data.data.objectives_title || "",
-            objectives_description: data.data.objectives_description || "",
-          })
-
-          // Ensure we have arrays - parse if they're strings
-          let titles = data.data.objectives_card_title || []
-          let contents = data.data.objectives_card_content || []
-
-          // Parse if they come as JSON strings
-          if (typeof titles === 'string') {
-            try {
-              titles = JSON.parse(titles)
-            } catch (e) {
-              console.error("Error parsing titles:", e)
-              titles = []
-            }
-          }
-
-          if (typeof contents === 'string') {
-            try {
-              contents = JSON.parse(contents)
-            } catch (e) {
-              console.error("Error parsing contents:", e)
-              contents = []
-            }
-          }
-
-          // Ensure they're arrays
-          if (!Array.isArray(titles)) titles = []
-          if (!Array.isArray(contents)) contents = []
-
-          if (titles.length > 0 && contents.length > 0) {
-            const loadedCards = titles.map((title:string, index:number) => ({
-              title: title || "",
-              content: contents[index] || "",
-            }))
-            setCards(loadedCards)
-          } else {
-            // Set default card if no data
-            setCards([{ title: "", content: "" }])
-          }
-        } else {
-          setIsEdit(false)
-          setCards([{ title: "", content: "" }])
-        }
-      } else if (response.status === 404) {
-        setIsEdit(false)
-        setCards([{ title: "", content: "" }])
-      } else {
-        const errorData = await response.json()
-        setError(errorData.error || "Failed to fetch objectives data")
-      }
-    } catch (error) {
-      console.error("Error fetching objectives data:", error)
-      setError(
-        error instanceof Error
-          ? error.message
-          : "Failed to connect to server. Please ensure Laravel backend is running."
-      )
-      setIsEdit(false)
-      setCards([{ title: "", content: "" }])
-=======
   Search,
   Filter,
   Eye,
@@ -128,6 +15,7 @@ export default function ObjectivesPage() {
   Upload,
   AlertCircle,
   Image as ImageIcon,
+  Target,
 } from "lucide-react"
 import Image from "next/image"
 import AdminLayout from "@/components/adminLayout"
@@ -288,28 +176,11 @@ export default function AdminObjectivesPage() {
         title: "Error",
         description: "Failed to load news.",
       })
->>>>>>> d961c4d44f144ef19bb3ed9d984f12c663c610e4
     } finally {
       setLoading(false)
     }
   }
 
-<<<<<<< HEAD
-  const handleAddCard = () => {
-    setCards([...cards, { title: "", content: "" }])
-  }
-
-  const handleRemoveCard = (index: number) => {
-    if (cards.length > 1) {
-      setCards(cards.filter((_, i) => i !== index))
-    }
-  }
-
-  const handleCardChange = (index: number, field: keyof ObjectiveCard, value: string) => {
-    const newCards = [...cards]
-    newCards[index][field] = value
-    setCards(newCards)
-=======
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
 
@@ -385,84 +256,20 @@ export default function AdminObjectivesPage() {
     })
     setImage(null)
     setPreview("")
->>>>>>> d961c4d44f144ef19bb3ed9d984f12c663c610e4
   }
 
   const handleSubmit = async () => {
     try {
-<<<<<<< HEAD
-      if (
-        !formData.objectives_header ||
-        !formData.objectives_title ||
-        !formData.objectives_description
-      ) {
-        alert("Please fill in all required header fields")
-        return
-      }
-
-      const hasEmptyCards = cards.some(card => !card.title.trim() || !card.content.trim())
-      if (hasEmptyCards) {
-        alert("Please fill in all objective card titles and contents")
-=======
       if (!formData.title || !formData.content || !formData.category) {
         toast({
           variant: "destructive",
           title: "Error",
           description: "Please fill in all required fields.",
         })
->>>>>>> d961c4d44f144ef19bb3ed9d984f12c663c610e4
         return
       }
 
       setIsSubmitting(true)
-<<<<<<< HEAD
-      setError(null)
-
-      const method = isEdit ? "PUT" : "POST"
-
-      const payload = {
-        ...formData,
-        objectives_card_title: cards.map(card => card.title),
-        objectives_card_content: cards.map(card => card.content),
-      }
-
-      console.log("Submitting payload:", payload)
-
-      const response = await fetch("/api/objectives", {
-        method,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      })
-
-      const text = await response.text()
-      console.log("Raw response:", text)
-
-      let data
-      try {
-        data = JSON.parse(text)
-        console.log("Parsed JSON:", data)
-      } catch {
-        setError("Invalid server response")
-        return
-      }
-
-      if (response.ok && data.success) {
-        alert(`Objectives ${isEdit ? "updated" : "created"} successfully`)
-        fetchObjectivesData()
-      } else {
-        setError(data.error || data.message || "Failed to save objectives")
-        alert(data.error || data.message || "Failed to save objectives")
-      }
-    } catch (error) {
-      console.error("Submit error:", error)
-      const errorMessage = error instanceof Error
-        ? error.message
-        : "Failed to save objectives"
-      setError(errorMessage)
-      alert(errorMessage)
-=======
 
       const formDataToSend = new FormData()
       formDataToSend.append("title", formData.title)
@@ -512,17 +319,11 @@ export default function AdminObjectivesPage() {
         title: "Error",
         description: "Failed to save news.",
       })
->>>>>>> d961c4d44f144ef19bb3ed9d984f12c663c610e4
     } finally {
       setIsSubmitting(false)
     }
   }
 
-<<<<<<< HEAD
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50">
-=======
   const handleDelete = async (id: number) => {
     if (!confirm("Are you sure you want to delete this news article?")) {
       return
@@ -602,7 +403,6 @@ export default function AdminObjectivesPage() {
   if (authLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
->>>>>>> d961c4d44f144ef19bb3ed9d984f12c663c610e4
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading...</p>
@@ -618,7 +418,6 @@ export default function AdminObjectivesPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-<<<<<<< HEAD
                 <div className="p-2 bg-green-100 rounded-lg">
                   <Target className="w-6 h-6 text-green-600" />
                 </div>
@@ -627,7 +426,6 @@ export default function AdminObjectivesPage() {
                   <p className="text-sm text-gray-500">Manage organizational objectives</p>
                 </div>
               </div>
-=======
                 <div className="p-2 bg-orange-100 rounded-lg">
                   <Newspaper className="w-6 h-6 text-orange-600" />
                 </div>
@@ -649,120 +447,11 @@ export default function AdminObjectivesPage() {
               >
                 <Plus className="w-5 h-5" />
               </button>
->>>>>>> d961c4d44f144ef19bb3ed9d984f12c663c610e4
             </div>
           </div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
-<<<<<<< HEAD
-
-          {/* Error Alert */}
-          {error && (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3">
-              <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-              <div className="flex-1">
-                <h3 className="text-sm font-semibold text-red-900">Error</h3>
-                <p className="text-sm text-red-700 mt-1">{error}</p>
-              </div>
-              <button
-                onClick={() => setError(null)}
-                className="text-red-600 hover:text-red-800"
-              >
-                ×
-              </button>
-            </div>
-          )}
-
-          {/* Retry Button */}
-          {error && (
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <button
-                onClick={fetchObjectivesData}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all"
-              >
-                <RefreshCw className="w-4 h-4" />
-                Retry Loading Data
-              </button>
-            </div>
-          )}
-
-          {/* Header Information Card */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">General Information</h2>
-
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Header <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  value={formData.objectives_header}
-                  onChange={(e) => setFormData({ ...formData, objectives_header: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                  placeholder="Enter header (e.g., Our Objectives)"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Title <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  value={formData.objectives_title}
-                  onChange={(e) => setFormData({ ...formData, objectives_title: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                  placeholder="Enter title"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Description <span className="text-red-500">*</span>
-                </label>
-                <textarea
-                  value={formData.objectives_description}
-                  onChange={(e) => setFormData({ ...formData, objectives_description: e.target.value })}
-                  rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 resize-none"
-                  placeholder="Enter description"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Objectives Cards */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-900">Objective Cards</h2>
-              <button
-                onClick={handleAddCard}
-                className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all text-sm"
-              >
-                <Plus className="w-4 h-4" />
-                Add Objective
-              </button>
-            </div>
-
-            <div className="space-y-4">
-              {cards.map((card, index) => (
-                <div key={index} className="p-4 border border-gray-200 rounded-lg bg-gray-50">
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-sm font-semibold text-gray-700">Objective {index + 1}</h3>
-                    {cards.length > 1 && (
-                      <button
-                        onClick={() => handleRemoveCard(index)}
-                        className="text-red-600 hover:text-red-800 transition-colors"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    )}
-                  </div>
-
-                  <div className="space-y-3">
-=======
           <div className="bg-white rounded-lg border border-gray-200 p-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="relative">
@@ -1072,30 +761,20 @@ export default function AdminObjectivesPage() {
                   </div>
                 ) : (
                   <div className="space-y-4">
->>>>>>> d961c4d44f144ef19bb3ed9d984f12c663c610e4
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         Title <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="text"
-<<<<<<< HEAD
-                        value={card.title}
-                        onChange={(e) => handleCardChange(index, 'title', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                        placeholder="Enter objective title"
-=======
                         value={formData.title}
                         onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                         placeholder="Enter news title"
->>>>>>> d961c4d44f144ef19bb3ed9d984f12c663c610e4
                       />
                     </div>
 
                     <div>
-<<<<<<< HEAD
-=======
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Category <span className="text-red-500">*</span>
                       </label>
@@ -1117,79 +796,10 @@ export default function AdminObjectivesPage() {
                     </div>
 
                     <div>
->>>>>>> d961c4d44f144ef19bb3ed9d984f12c663c610e4
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         Content <span className="text-red-500">*</span>
                       </label>
                       <textarea
-<<<<<<< HEAD
-                        value={card.content}
-                        onChange={(e) => handleCardChange(index, 'content', e.target.value)}
-                        rows={4}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 resize-none"
-                        placeholder="Enter objective content"
-                      />
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {cards.length === 0 && (
-              <div className="text-center py-8 text-gray-500">
-                <Target className="w-12 h-12 mx-auto mb-3 text-gray-400" />
-                <p className="text-sm">No objectives added yet</p>
-                <button
-                  onClick={handleAddCard}
-                  className="mt-3 text-green-600 hover:text-green-700 text-sm font-medium"
-                >
-                  Add your first objective
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* Save Button */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <button
-              onClick={handleSubmit}
-              disabled={isSubmitting}
-              className="w-full md:w-auto px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg hover:from-green-700 hover:to-emerald-700 transition-all text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-            >
-              {isSubmitting ? (
-                <>
-                  <svg
-                    className="animate-spin h-5 w-5 text-white"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    ></circle>
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    ></path>
-                  </svg>
-                  Saving...
-                </>
-              ) : (
-                <>
-                  <Save className="w-5 h-5" />
-                  Save Objectives
-                </>
-              )}
-            </button>
-          </div>
-        </div>
-=======
                         value={formData.content}
                         onChange={(e) => setFormData({ ...formData, content: e.target.value })}
                         rows={6}
@@ -1344,7 +954,6 @@ export default function AdminObjectivesPage() {
             </div>
           </div>
         )}
->>>>>>> d961c4d44f144ef19bb3ed9d984f12c663c610e4
       </div>
     </AdminLayout>
   )

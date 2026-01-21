@@ -459,22 +459,14 @@ export default function AdminAnnouncementsPage() {
               </div>
               <button
                 onClick={handleCreateNew}
-<<<<<<< HEAD
-                className="hidden sm:flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-600 to-orange-500 text-white rounded-lg hover:from-emerald-700 hover:to-orange-600 transition-all"
-=======
                 className="hidden sm:flex items-center gap-2 px-4 py-2 bg-linear-to-r from-emerald-600 to-orange-500 text-white rounded-lg hover:from-emerald-700 hover:to-orange-600 transition-all"
->>>>>>> d961c4d44f144ef19bb3ed9d984f12c663c610e4
               >
                 <Plus className="w-5 h-5" />
                 New Announcement
-              </button>
+              </button>  
               <button
                 onClick={handleCreateNew}
-<<<<<<< HEAD
-                className="sm:hidden p-2 bg-gradient-to-r from-emerald-600 to-orange-500 text-white rounded-lg hover:from-emerald-700 hover:to-orange-600 transition-all"
-=======
                 className="sm:hidden p-2 bg-linear-to-r from-emerald-600 to-orange-500 text-white rounded-lg hover:from-emerald-700 hover:to-orange-600 transition-all"
->>>>>>> d961c4d44f144ef19bb3ed9d984f12c663c610e4
               >
                 <Plus className="w-5 h-5" />
               </button>
@@ -1028,11 +1020,7 @@ export default function AdminAnnouncementsPage() {
                       <button
                         onClick={handleSubmit}
                         disabled={isSubmitting}
-<<<<<<< HEAD
-                        className="w-full sm:w-auto px-4 py-3 bg-gradient-to-r from-emerald-600 to-orange-500 text-white rounded-lg hover:from-emerald-700 hover:to-orange-600 transition-all text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-=======
                         className="w-full sm:w-auto px-4 py-3 bg-linear-to-r from-emerald-600 to-orange-500 text-white rounded-lg hover:from-emerald-700 hover:to-orange-600 transition-all text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
->>>>>>> d961c4d44f144ef19bb3ed9d984f12c663c610e4
                       >
                         {isSubmitting ? (
                           <>

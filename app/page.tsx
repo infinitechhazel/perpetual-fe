@@ -308,11 +308,7 @@ export default function Home() {
               </Carousel>
             </div>
 
-<<<<<<< HEAD
-            <div className="flex flex-col justify-center items-center text-center lg:text-left lg:py-10">
-=======
             <div className="flex flex-col justify-center items-center text-center lg:text-left py-10">
->>>>>>> d961c4d44f144ef19bb3ed9d984f12c663c610e4
               <h1 className="text-4xl lg:text-6xl font-light mb-6">
                 Welcome to <span className="font-bold">Perpetual College</span>
               </h1>
@@ -420,10 +416,6 @@ export default function Home() {
             </div>
           )}
 
-<<<<<<< HEAD
-=======
-
->>>>>>> d961c4d44f144ef19bb3ed9d984f12c663c610e4
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}

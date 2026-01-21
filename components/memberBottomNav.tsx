@@ -17,11 +17,6 @@ import {
   MapPin,
   Bell,
   LogOut,
-<<<<<<< HEAD
-  Megaphone, 
-  NotebookText,
-=======
->>>>>>> d961c4d44f144ef19bb3ed9d984f12c663c610e4
   ChevronUp,
    File,
 } from 'lucide-react';
@@ -31,15 +26,6 @@ export default function MemberBottomNav() {
   const pathname = usePathname();
   const [showQuickAccess, setShowQuickAccess] = useState(false);
 
-<<<<<<< HEAD
-  const navigationItems = [
-      { icon: Home, label: 'Home', path: '/dashboard/member' },
-      { icon: Megaphone, label: 'Announcement', path: '/dashboard/member/announcement' },
-      { icon: Newspaper, label: 'News', path: '/dashboard/member/news' },
-      { icon: User, label: 'Profile', path: '/dashboard/member/account' },
-  ];
-
-=======
   const mainNavigationItems = [
     { icon: Home, label: 'Home', path: '/dashboard/member' },
     { icon: Grid3x3, label: 'Services', path: '/dashboard/member/services' },
@@ -64,7 +50,6 @@ export default function MemberBottomNav() {
 ];
 
 
->>>>>>> d961c4d44f144ef19bb3ed9d984f12c663c610e4
   const isActive = (path: string) => pathname === path;
 
   const handleNavigation = (path: string) => {
@@ -74,8 +59,6 @@ export default function MemberBottomNav() {
 
   return (
     <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40">
-<<<<<<< HEAD
-=======
       {/* Quick Access Expandable Panel */}
       <div 
         className={`bg-linear-to-br from-emerald-50 to-orange-50 border-t border-gray-200 shadow-lg transition-all duration-300 overflow-hidden ${
@@ -126,7 +109,6 @@ export default function MemberBottomNav() {
         </div>
       </div>
 
->>>>>>> d961c4d44f144ef19bb3ed9d984f12c663c610e4
       {/* Main Bottom Navigation Bar */}
       <nav className="bg-white border-t border-gray-200 shadow-lg">
         {/* Toggle Button for Quick Access */}
@@ -141,11 +123,7 @@ export default function MemberBottomNav() {
         )}
 
         <div className="flex items-center justify-around">
-<<<<<<< HEAD
-          {navigationItems.map((item, index) => {
-=======
           {mainNavigationItems.map((item, index) => {
->>>>>>> d961c4d44f144ef19bb3ed9d984f12c663c610e4
             const active = isActive(item.path);
             return (
               <button
@@ -166,8 +144,6 @@ export default function MemberBottomNav() {
               </button>
             );
           })}
-<<<<<<< HEAD
-=======
           
           {/* Menu Toggle Button */}
           <button
@@ -197,7 +173,6 @@ export default function MemberBottomNav() {
               </>
             )}
           </button>
->>>>>>> d961c4d44f144ef19bb3ed9d984f12c663c610e4
         </div>
       </nav>
     </div>

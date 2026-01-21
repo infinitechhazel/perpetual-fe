@@ -15,8 +15,6 @@ export default function MemberHeader() {
 
   return (
     <>
-<<<<<<< HEAD
-=======
       {/* Desktop Header */}
       <header className="hidden lg:block bg-white shadow-sm sticky top-0 z-30">
        
@@ -25,7 +23,6 @@ export default function MemberHeader() {
  
       </header>
 
->>>>>>> d961c4d44f144ef19bb3ed9d984f12c663c610e4
       {/* Mobile Header */}
       <header className="lg:hidden bg-white shadow-sm sticky top-0 z-30 px-4 py-3">
         <div className="flex items-center justify-between">
