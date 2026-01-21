@@ -139,7 +139,7 @@ export default function MissionAndVisionPage() {
     }
 
     return (
-        <AdminLayout>
+        <>
             <div className="min-h-screen bg-gray-50">
                 <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -257,7 +257,7 @@ export default function MissionAndVisionPage() {
                                     placeholder="Enter your organization's mission statement..."
                                 />
                                 <p className="text-xs text-gray-500 mt-1">
-                                    Describe your organization's purpose and what it aims to achieve
+                                    Describe your organization&apos;s purpose and what it aims to achieve
                                 </p>
                             </div>
                         </div>
@@ -281,7 +281,7 @@ export default function MissionAndVisionPage() {
                                     placeholder="Enter your organization's vision statement..."
                                 />
                                 <p className="text-xs text-gray-500 mt-1">
-                                    Describe your organization's future aspirations and long-term goals
+                                    Describe your organization&apos;s future aspirations and long-term goals
                                 </p>
                             </div>
                         </div>
@@ -328,6 +328,6 @@ export default function MissionAndVisionPage() {
                     </div>
                 </div>
             </div>
-        </AdminLayout>
+        </>
     )
 }

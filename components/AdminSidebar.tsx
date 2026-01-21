@@ -11,7 +11,7 @@ import {
   LogOut,
   Shield,
   FileText,
-  Building,
+  Megaphone,
   ScrollText,
   Heart,
   UserCheck,
@@ -19,10 +19,14 @@ import {
   Home,
   HandHelping,
   MapPin,
+  MonitorCog,
   ChevronDown,
   ChevronUp,
   ChevronLeft,
   ChevronRight,
+  Handshake,
+  Images,
+  Settings,
 } from "lucide-react";
 import { authClient } from "@/lib/auth";
 import { useToast } from "@/components/ui/use-toast";
@@ -114,21 +118,22 @@ export default function AdminSidebar({
   const navigationItems = [
     { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard/admin" },
     { icon: Newspaper, label: "News", path: "/dashboard/admin/news" },
-    { icon: Newspaper, label: "Announcements", path: "/dashboard/admin/announcements" },
+    { icon: Megaphone, label: "Announcements", path: "/dashboard/admin/announcements" },
     { icon: Mail, label: "Contact Messages", path: "/dashboard/admin/contact" },
+    { icon: User, label: "Users", path: "/dashboard/admin/users" },
   ];
 
-  const aboutUs = [
-    { icon: FileText, label: "Our Comunity", path: "/dashboard/admin/our-community" },
-    { icon: FileText, label: "Goals", path: "/dashboard/admin/goals" },
-    { icon: FileText, label: "Mission & Vision", path: "/dashboard/admin/mission-and-vision" },
-    { icon: FileText, label: "Objectives", path: "/dashboard/admin/objectives" },
+  const customization = [
+    { icon: FileText, label: "About Us", path: "/dashboard/admin/about-us" },
+    { icon: FileText, label: "Contact Information", path: "/dashboard/admin/office-contact" },
+    { icon: Handshake, label: "Partnerships", path: "/dashboard/admin/partners" },
+    { icon: Images, label: "Gallery", path: "/dashboard/admin/gallery" },
   ];
 
   
 
   const isaboutUsActive =
-    expandedSections.aboutUs || isSectionActive(aboutUs);
+    expandedSections.aboutUs || isSectionActive(customization);
 
   return (
     <aside className={`hidden lg:block fixed top-0 left-0 h-full overflow-visible bg-gradient-to-b from-yellow-600/90 via-red-800/90 to-red-900/90 text-white shadow-2xl z-50 transition-all duration-300 ${isCollapsed ? "w-[70px]" : "w-[300px]"}`}>
@@ -188,10 +193,10 @@ export default function AdminSidebar({
               onClick={() => !isCollapsed && toggleSection("aboutUs")}
               className={`w-full flex items-center justify-between gap-3 px-3 py-3 rounded-lg text-left transition-colors text-sm hover:bg-white/10 ${isaboutUsActive ? "bg-white/20 font-semibold shadow-lg" : "hover:bg-white/10"} ${isCollapsed ? "justify-center" : ""}`}>
               <div className="flex items-center gap-2 justify-center">
-                <FileText size={16} />
+                <Settings size={16} />
                 {!isCollapsed && (
-                  <span className={`font-semibold text-white/90 text-xs tracking-wide ${isaboutUsActive ? "text-white font-semibold" : "text-white/90"}`}>
-                    ABOUT US
+                  <span className={`font-semibold text-white/90 text-sm tracking-wide ${isaboutUsActive ? "text-white font-semibold" : "text-white/90"}`}>
+                    Customization
                   </span>
                 )}
               </div>
@@ -208,7 +213,7 @@ export default function AdminSidebar({
             {/* NORMAL EXPANDED MODE */}
             {!isCollapsed && expandedSections.aboutUs && (
               <div className="space-y-1 pl-3 m-1">
-                {aboutUs.map((item, index) => {
+                {customization.map((item, index) => {
                   const active = isActive(item.path);
                   return (
                     <button
@@ -229,9 +234,9 @@ export default function AdminSidebar({
             {isCollapsed && (
               <div className="absolute left-full -translate-y-1/2 -ml-5 py-2 w-56 bg-yellow-600 rounded-lg shadow-xl opacity-0 translate-x-2 invisible pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 group-hover:visible group-hover:pointer-events-auto group-hover:delay-150 transition-all duration-200 ease-out z-[9999]">
                 <span className="w-full flex items-center px-4 py-2 font-semibold text-white/90 text-xs tracking-wide border-b border-white/20">
-                  ABOUT US
+                  CUSTOMIZATION
                 </span>
-                {aboutUs.map((item, index) => {
+                {customization.map((item, index) => {
                   const active = isActive(item.path);
                   return (
                     <button
@@ -248,43 +253,6 @@ export default function AdminSidebar({
               </div>
             )}
           </div>
-
-
-          {/* Account Section */}
-          <div className="group">
-            {/* MAIN BUTTON */}
-            <button onClick={() => router.push("/dashboard/admin/office-contact")} className={`w-full flex items-center gap-2 px-3 py-3 rounded-lg text-left transition-colors text-sm ${isCollapsed ? "justify-center" : ""} ${isActive("/dashboard/admin/users") ? "bg-white/20 font-semibold shadow-lg" : "hover:bg-white/10"}`}>
-              <User size={16} />
-              {!isCollapsed && <span className="text-xs">Contact Us</span>}
-            </button>
-
-            {/* COLLAPSED MODE FLYOUT */}
-            {isCollapsed && (
-              <div
-                className=" absolute left-full w-44 -translate-y-1/2  -my-5 -m-2 px-3 py-2 bg-yellow-600 text-white text-xs font-semibold rounded-md shadow-xl opacity-0 translate-x-2 invisible pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 group-hover:visible group-hover:pointer-events-auto transition-all duration-200 ease-out z-[9999]">
-                Contact Us
-              </div>
-            )}
-          </div>
-
-
-          {/* Account Section */}
-          <div className="group">
-            {/* MAIN BUTTON */}
-            <button onClick={() => router.push("/dashboard/admin/users")} className={`w-full flex items-center gap-2 px-3 py-3 rounded-lg text-left transition-colors text-sm ${isCollapsed ? "justify-center" : ""} ${isActive("/dashboard/admin/users") ? "bg-white/20 font-semibold shadow-lg" : "hover:bg-white/10"}`}>
-              <User size={16} />
-              {!isCollapsed && <span className="text-xs">Users</span>}
-            </button>
-
-            {/* COLLAPSED MODE FLYOUT */}
-            {isCollapsed && (
-              <div
-                className=" absolute left-full w-44 -translate-y-1/2  -my-5 -m-2 px-3 py-2 bg-yellow-600 text-white text-xs font-semibold rounded-md shadow-xl opacity-0 translate-x-2 invisible pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 group-hover:visible group-hover:pointer-events-auto transition-all duration-200 ease-out z-[9999]">
-                Users
-              </div>
-            )}
-          </div>
-
         </nav>
 
         {/* Logout Section */}

@@ -4,7 +4,7 @@ import CTASection from "@/components/cta-section"
 import PageLayout from "@/components/page-layout"
 import ServicesSection from "@/components/partners-section"
 
-export default function ServicesPage() {
+export default function PartnershipPage() {
   return (
     <PageLayout
       title="Trusted Partners"
