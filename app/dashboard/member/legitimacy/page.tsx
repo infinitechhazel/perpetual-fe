@@ -287,7 +287,12 @@ export default function LegitimacyPage() {
                         </button>
                         <button
                           onClick={() => openEditModal(app)}
-                          className="text-orange-600 p-1.5 rounded hover:bg-orange-50"
+                          disabled={app.status !== "pending"}
+                          className={`text-orange-600 p-1.5 rounded hover:bg-orange-50 ${
+                            app.status !== "pending"
+                              ? "opacity-50 cursor-not-allowed hover:bg-transparent"
+                              : ""
+                          }`}
                         >
                           <Edit />
                         </button>
