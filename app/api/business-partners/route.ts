@@ -1,39 +1,3 @@
-<<<<<<< HEAD
-// app/api/business-partners/route.ts
-import { NextRequest, NextResponse } from "next/server"
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api"
-const IMAGE_BASE_URL = process.env.NEXT_PUBLIC_IMAGE_URL || "http://localhost:8000"
-
-// Helper function to transform photo URLs
-function transformPhotoUrl(photoPath: string | null | undefined): string | null {
-  if (!photoPath) return null
-  
-  // If already a full URL, return as is
-  if (photoPath.startsWith('http://') || photoPath.startsWith('https://')) {
-    return photoPath
-  }
-  
-  // Construct full URL from relative path
-  const cleanPath = photoPath.startsWith('/') ? photoPath : `/${photoPath}`
-  return `${IMAGE_BASE_URL}${cleanPath}`
-}
-
-// Public endpoint - Get all approved business partners
-export async function GET(req: NextRequest) {
-  try {
-    const url = new URL(req.url)
-    const queryParams = url.searchParams.toString()
-
-    console.log("Fetching public business partners from:", `${API_URL}/business-partners${queryParams ? '?' + queryParams : ''}`)
-
-    const res = await fetch(`${API_URL}/business-partners${queryParams ? '?' + queryParams : ''}`, {
-      headers: {
-        Accept: "application/json",
-        "X-Requested-With": "XMLHttpRequest",
-      },
-      cache: 'no-store', // Disable caching to always get fresh data
-=======
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
 
@@ -87,7 +51,6 @@ export async function POST(req: NextRequest) {
       },
       body: formData,
       credentials: "include",
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
     })
 
     const contentType = res.headers.get("content-type")
@@ -95,48 +58,6 @@ export async function POST(req: NextRequest) {
 
     if (contentType?.includes("application/json")) {
       data = await res.json()
-<<<<<<< HEAD
-      console.log("Laravel response:", data)
-      
-      // Transform photo URLs in the response
-      if (data.success && data.data) {
-        if (Array.isArray(data.data)) {
-          // Handle array of business partners
-          data.data = data.data.map((partner: any) => ({
-            ...partner,
-            photo: transformPhotoUrl(partner.photo)
-          }))
-        } else if (data.data.data && Array.isArray(data.data.data)) {
-          // Handle paginated response
-          data.data.data = data.data.data.map((partner: any) => ({
-            ...partner,
-            photo: transformPhotoUrl(partner.photo)
-          }))
-        }
-      }
-      
-      console.log("Transformed response with full image URLs")
-    } else {
-      const text = await res.text()
-      console.error("Non-JSON response from Laravel:", text)
-      return NextResponse.json({ 
-        success: false, 
-        message: "Invalid response from server",
-        debug: text.substring(0, 500)
-      }, { status: 500 })
-    }
-
-    return NextResponse.json(data, { status: res.status })
-  } catch (err) {
-    console.error("Server error:", err)
-    return NextResponse.json({ 
-      success: false, 
-      message: "Server error",
-      error: err instanceof Error ? err.message : "Unknown error"
-    }, { status: 500 })
-  }
-}
-=======
     } else {
       const text = await res.text()
       console.error("Non-JSON response from Laravel:", text)
@@ -168,4 +89,3 @@ export async function POST(req: NextRequest) {
     )
   }
 }
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55

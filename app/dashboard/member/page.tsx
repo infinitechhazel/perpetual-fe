@@ -119,8 +119,4 @@ export default function MemberDashboard() {
       </div>
     </MemberLayout>
   );
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55

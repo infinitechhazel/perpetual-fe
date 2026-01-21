@@ -434,11 +434,7 @@ export default function AdminNewsPage() {
               </button>
               <button
                 onClick={handleCreateNew}
-<<<<<<< HEAD
-                className="sm:hidden p-2 bg-gradient-to-r from-emerald-600 to-orange-500 text-white rounded-lg hover:bg-yellow-500/90 transition-all"
-=======
                 className="sm:hidden p-2 bg-linear-to-r from-emerald-600 to-orange-500 text-white rounded-lg hover:bg-yellow-500/90 transition-all"
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
               >
                 <Plus className="w-5 h-5" />
               </button>
@@ -540,11 +536,7 @@ export default function AdminNewsPage() {
                 <p className="text-gray-500 mb-4">Create your first news article</p>
                 <button
                   onClick={handleCreateNew}
-<<<<<<< HEAD
-                  className="px-4 py-2 bg-gradient-to-br from-yellow-600/90 via-red-600/90 to-red-800/90 text-white rounded-lg hover:shadow-orange-500/50 transition-colors"
-=======
                   className="px-4 py-2 bg-linear-to-br from-yellow-600/90 via-red-600/90 to-red-800/90 text-white rounded-lg hover:shadow-orange-500/50 transition-colors"
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
                 >
                   New Article
                 </button>
@@ -916,11 +908,7 @@ export default function AdminNewsPage() {
                       <button
                         onClick={handleSubmit}
                         disabled={isSubmitting}
-<<<<<<< HEAD
-                        className="w-full sm:w-auto px-4 py-3 bg-gradient-to-r from-emerald-600 to-orange-500 text-white rounded-lg hover:from-emerald-700 hover:to-orange-600 transition-all text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-=======
                         className="w-full sm:w-auto px-4 py-3 bg-linear-to-r from-emerald-600 to-orange-500 text-white rounded-lg hover:from-emerald-700 hover:to-orange-600 transition-all text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
                       >
                         {isSubmitting ? (
                           <>

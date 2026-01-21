@@ -15,30 +15,18 @@ export default function MemberLayout({ children }: MemberLayoutProps) {
   const router = useRouter();
   const [isChecking, setIsChecking] = useState(true);
   const [user, setUser] = useState<any>(null);
-<<<<<<< HEAD
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-=======
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
 
   useEffect(() => {
     async function checkAuth() {
       try {
         console.log('MemberLayout: Checking authentication...');
-<<<<<<< HEAD
-
-        // Get user from cookie-based auth
-        const currentUser = await authClient.getCurrentUser();
-
-        console.log('MemberLayout: User data received:', currentUser);
-
-=======
         
         // Get user from cookie-based auth
         const currentUser = await authClient.getCurrentUser();
         
         console.log('MemberLayout: User data received:', currentUser);
         
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
         if (!currentUser) {
           console.log('MemberLayout: No user found, redirecting to login');
           router.push('/login');
@@ -85,7 +73,6 @@ export default function MemberLayout({ children }: MemberLayoutProps) {
   return (
     <div className="min-h-screen bg-linear-to-br from-emerald-50 via-white to-orange-50">
       {/* Sidebar - Desktop only */}
-<<<<<<< HEAD
       <MemberSidebar
         isCollapsed={isSidebarCollapsed}
         setIsCollapsed={setIsSidebarCollapsed}
@@ -93,12 +80,6 @@ export default function MemberLayout({ children }: MemberLayoutProps) {
 
       {/* Main Content */}
       <div className={`pb-20 lg:pb-0 transition-all duration-300  ${isSidebarCollapsed ? "lg:ml-[70px]" : "lg:ml-[300px]"}  `}>
-=======
-      <MemberSidebar />
-
-      {/* Main Content */}
-      <div className="lg:ml-64 pb-20 lg:pb-0">
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
         {/* Header */}
         <MemberHeader />
 

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 "use client";
 
 import { useEffect, useState } from "react";
@@ -188,111 +187,10 @@ export default function Home() {
       message: "Comprehensive platform for upholding our fraternity's standards and values. Communication with members regarding expectations is now seamless.",
     },
   ];
-=======
-"use client"
-
-import { useEffect, useState } from "react"
-import Header from "@/components/header"
-import Footer from "@/components/footer"
-import Link from "next/link"
-import { motion, AnimatePresence } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Users, Zap, Clock, X, Calendar, User, FileText, Building, Heart, TrendingUp } from "lucide-react"
-
-import { Card, CardContent } from "@/components/ui/card"
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
-
-import CTASection from "@/components/cta-section"
-
-interface NewsArticle {
-  id: number
-  title: string
-  content: string
-  category: string
-  image?: string
-  status: string
-  published_at?: string
-  created_at: string
-  author?: {
-    id: number
-    name: string
-    email: string
-  }
-}
-
-interface AnnouncementItem {
-  id: number
-  title: string
-  content: string
-  category: string
-  created_at: string
-}
-
-interface Testimonial {
-  id: number
-  name: string
-  role: string
-  message: string
-}
-
-interface Vlog {
-  id: number
-  title: string
-  date: string
-  category: string
-  description?: string
-  content: string
-  is_active: boolean
-  video?: string
-  created_at: string
-  updated_at: string
-}
-
-const BUSINESS_PARTNERS = [
-  { name: "Perpetual Help System DALTA", logo: "/partners/perpetual.png" },
-  { name: "Barangay Council", logo: "/partners/barangay.png" },
-  { name: "Local Business Association", logo: "/partners/lba.png" },
-  { name: "Community Health Center", logo: "/partners/health.png" },
-  { name: "Youth Development Office", logo: "/partners/youth.png" },
-  { name: "Public Safety Office", logo: "/partners/safety.png" },
-]
-export default function Home() {
-  const [announcements, setAnnouncements] = useState<AnnouncementItem[]>([])
-  const [announcementLoading, setAnnouncementLoading] = useState(true)
-  const [news, setNews] = useState<NewsArticle[]>([])
-  const [loading, setLoading] = useState(true)
-  const [selectedArticle, setSelectedArticle] = useState<NewsArticle | null>(null)
-  const [testimonials, setTestimonials] = useState<Testimonial[]>([])
-  const [testimonialLoading, setTestimonialLoading] = useState(true)
-  const [vlogs, setVlogs] = useState<Vlog[]>([])
-
-  const fetchVlogs = async () => {
-    setLoading(true)
-    try {
-      const res = await fetch("/api/vlogs") 
-      const data = await res.json()
-
-      if (data.success) {
-        setVlogs(data.data) 
-      } else {
-        console.error("Failed to fetch vlogs:", data.message)
-      }
-    } catch (err) {
-      console.error("Error fetching vlogs:", err)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  useEffect(() => {
-    fetchVlogs()
-  }, [])
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
 
   useEffect(() => {
     const fetchAnnouncements = async () => {
       try {
-<<<<<<< HEAD
         setAnnouncementLoading(true);
 
         const res = await fetch("/api/announcements/published?per_page=8");
@@ -322,37 +220,10 @@ export default function Home() {
 
     fetchAnnouncements();
   }, []);
-=======
-        setAnnouncementLoading(true)
-
-        const res = await fetch("/api/announcements/published?per_page=6")
-
-        if (!res.ok) {
-          throw new Error(`HTTP error ${res.status}`)
-        }
-
-        const result = await res.json()
-
-        if (result?.success) {
-          const data = result.data?.data && Array.isArray(result.data.data) ? result.data.data : Array.isArray(result.data) ? result.data : []
-
-          setAnnouncements(data)
-        }
-      } catch (err) {
-        console.error("[Home] Failed to fetch announcements:", err)
-      } finally {
-        setAnnouncementLoading(false)
-      }
-    }
-
-    fetchAnnouncements()
-  }, [])
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
 
   useEffect(() => {
     const fetchNews = async () => {
       try {
-<<<<<<< HEAD
         setLoading(true);
         
         console.log("[Home] 🔍 Fetching news from: /api/news/published?per_page=3");
@@ -437,99 +308,12 @@ export default function Home() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-=======
-        setLoading(true)
-        const response = await fetch("/api/news/published?per_page=3")
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
-        }
-
-        const result = await response.json()
-
-        if (result.success) {
-          let newsData: NewsArticle[] = []
-
-          if (result.data && typeof result.data === "object") {
-            if (Array.isArray(result.data.data)) {
-              newsData = result.data.data
-            } else if (Array.isArray(result.data)) {
-              newsData = result.data
-            }
-          }
-
-          setNews(newsData)
-        } else {
-          throw new Error(result.message || "Failed to fetch news")
-        }
-      } catch (error) {
-        console.error("[Home] Failed to fetch news:", error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchNews()
-  }, [])
-
-  useEffect(() => {
-    const fetchTestimonials = async () => {
-      try {
-        setTestimonialLoading(true)
-
-        const res = await fetch("/api/testimonials/published?per_page=3")
-
-        if (!res.ok) {
-          throw new Error(`HTTP error ${res.status}`)
-        }
-
-        const result = await res.json()
-
-        if (result?.success) {
-          const data = result.data?.data && Array.isArray(result.data.data) ? result.data.data : Array.isArray(result.data) ? result.data : []
-
-          setTestimonials(data)
-        }
-      } catch (err) {
-        console.error("[Home] Failed to fetch testimonials:", err)
-      } finally {
-        setTestimonialLoading(false)
-      }
-    }
-
-    fetchTestimonials()
-  }, [])
-
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setSelectedArticle(null)
-    }
-    window.addEventListener("keydown", handleEscape)
-    return () => window.removeEventListener("keydown", handleEscape)
-  }, [])
-
-  useEffect(() => {
-    if (selectedArticle) {
-      document.body.style.overflow = "hidden"
-    } else {
-      document.body.style.overflow = "unset"
-    }
-  }, [selectedArticle])
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
     return date.toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
       year: "numeric",
-<<<<<<< HEAD
     });
   };
-=======
-    })
-  }
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
 
   const getCategoryLabel = (category: string) => {
     const categoryMap: Record<string, string> = {
@@ -538,7 +322,6 @@ export default function Home() {
       alert: "Alert",
       update: "Update",
       news: "News",
-<<<<<<< HEAD
     };
     return categoryMap[category?.toLowerCase()] || "Update";
   };
@@ -590,78 +373,18 @@ export default function Home() {
                           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3 sm:p-4">
                             <p className="text-white text-xs sm:text-sm font-medium truncate">{video.title}</p>
                           </div>
-=======
-    }
-    return categoryMap[category?.toLowerCase()] || "Update"
-  }
-
-  return (
-    <main className="min-h-screen bg-linear-to-br from-red-50 to-orange-50">
-      <Header />
-
-      {/* Hero Section */}
-      <section className="relative min-h-[70vh] lg:min-h-[75vh] flex items-center overflow-hidden bg-linear-to-br from-red-50 to-orange-50 py-20 z-20">
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-linear-to-br from-yellow-800/90 via-[#800000]/90 to-[#800000]/90" />
-
-        {/* Decorative Elements */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white w-full">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <div className="hidden lg:grid lg:grid-cols-2 gap-10 items-center">
-              {vlogs.map((vlog) => (
-                <div key={vlog.id} className="relative overflow-hidden rounded-xl border border-white/10 bg-black/40">
-                  {vlog.video ? (
-                    <video controls className="mt-3 w-full">
-                      <source src={vlog.video} type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
-                  ) : (
-                    <p className="mt-3 text-red-500 text-sm">No video uploaded</p>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            <div className="lg:hidden m-10">
-              <Carousel className="w-full h-full lg:hidden">
-                <CarouselContent>
-                  {vlogs.map((vlog) => (
-                    <CarouselItem key={vlog.id}>
-                      <Card>
-                        <CardContent className="relative overflow-hidden rounded-xl border border-white/10">
-                          <video
-                            className="w-full h-64 md:h-80 lg:h-[360px] object-cover"
-                            src={
-                              vlog.video ? `${process.env.NEXT_PUBLIC_API_URL}${vlog.video}` : "/videos/perpetual-campus.mp4" // fallback if null
-                            }
-                            poster="/images/video-poster-1.jpg"
-                            muted
-                            autoPlay
-                            loop
-                            playsInline
-                          />
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
                         </CardContent>
                       </Card>
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-<<<<<<< HEAD
                 <CarouselPrevious className="hidden sm:flex" />
                 <CarouselNext className="hidden sm:flex" />
-=======
-                <CarouselPrevious />
-                <CarouselNext />
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
               </Carousel>
             </div>
 
             <div className="flex flex-col justify-center items-center text-center lg:text-left py-10">
               <h1 className="text-4xl lg:text-6xl font-light mb-6">
-<<<<<<< HEAD
                 Welcome to <span className="font-bold">Perpetual Help</span>
               </h1>
 
@@ -671,14 +394,6 @@ export default function Home() {
                 City is the largest campus in the system, serving around
                 14,000 students and employing about 1,370 teaching and
                 non-teaching staff.
-=======
-                Welcome to <span className="font-bold">Perpetual College</span>
-              </h1>
-
-              <p className="leading-relaxed text-center text-red-300 mb-8">
-                Formerly known as Perpetual Help College of Rizal (PHCR), the University of Perpetual Help System DALTA in Las Piñas City is the
-                largest campus in the system, serving around 14,000 students and employing about 1,370 teaching and non-teaching staff.
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
               </p>
 
               <div className="flex justify-center lg:justify-start">
@@ -690,7 +405,6 @@ export default function Home() {
           </motion.div>
         </div>
 
-<<<<<<< HEAD
         <div className="absolute bottom-0 left-0 right-0">
           <svg
             className="w-full h-16 md:h-24"
@@ -699,11 +413,6 @@ export default function Home() {
             xmlns="http://www.w3.org/2000/svg"
             preserveAspectRatio="none"
           >
-=======
-        {/* Wave Decoration */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg className="w-full h-16 md:h-24" viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
             <path
               d="M0 0L60 8.33333C120 16.6667 240 33.3333 360 41.6667C480 50 600 50 720 41.6667C840 33.3333 960 16.6667 1080 16.6667C1200 16.6667 1320 33.3333 1380 41.6667L1440 50V100H1380C1320 100 1200 100 1080 100C960 100 840 100 720 100C600 100 480 100 360 100C240 100 120 100 60 100H0V0Z"
               fill="#FCF2F0"
@@ -713,7 +422,6 @@ export default function Home() {
       </section>
 
       {/* Announcement Section */}
-<<<<<<< HEAD
       <section className="w-full py-20 px-4 sm:px-6 lg:px-8 relative z-10 bg-linear-to-br from-red-50 via-orange-50 to-green-50">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -797,57 +505,6 @@ export default function Home() {
             className="text-center"
           >
             <Link href="/announcements">
-=======
-      <section className="pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden z-10">
-        {/* Background */}
-        <div className="absolute inset-0 bg-linear-to-br from-red-50 to-orange-50 to-green-50 z-0" />
-
-        <div className="max-w-7xl mx-auto relative z-10">
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-16 text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              <span className="uppercase bg-linear-to-r from-yellow-600 via-red-600 to-red-900 bg-clip-text text-transparent">Announcement</span>
-            </h2>
-            <div className="w-32 h-1.5 bg-linear-to-r from-yellow-600 via-red-600 to-red-900 rounded-full mx-auto mb-4" />
-            <p className="text-lg text-gray-700 max-w-2xl mx-auto font-medium">Stay updated to the latest announcement</p>
-          </motion.div>
-
-          {announcementLoading ? (
-            [...Array(6)].map((_, i) => (
-              <div key={i} className="p-8 rounded-3xl bg-linear-to-br from-red-200 via-orange-200 to-green-200 animate-pulse h-64" />
-            ))
-          ) : announcements.length > 0 ? (
-            announcements.map((item, i) => {
-              const Icon = item.category === "event" ? Calendar : item.category === "alert" ? Zap : FileText
-
-              return (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.08, duration: 0.5 }}
-                  viewport={{ once: true }}
-                  whileHover={{ y: -12, scale: 1.02 }}
-                  className="p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-red-300 hover:shadow-2xl transition-all group"
-                >
-                  <div className="w-16 h-16 bg-linear-to-br from-yellow-400 via-red-600 to-red-900 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform">
-                    <Icon className="w-8 h-8 text-white" />
-                  </div>
-
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:bg-linear-to-r group-hover:from-red-600 group-hover:via-orange-600 group-hover:to-green-600 group-hover:bg-clip-text group-hover:text-transparent transition-all">
-                    {item.title}
-                  </h3>
-
-                  <p className="text-gray-600 leading-relaxed line-clamp-3">{item.content}</p>
-                </motion.div>
-              )
-            })
-          ) : (
-            <div className="col-span-full text-center py-12 text-gray-600">No announcements available.</div>
-          )}
-
-          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-center">
-            <Link href="/announcement">
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -861,7 +518,6 @@ export default function Home() {
       </section>
 
       {/* News Section */}
-<<<<<<< HEAD
       <section className="w-full py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -879,29 +535,15 @@ export default function Home() {
             <p className="text-lg text-gray-700 max-w-2xl mx-auto font-medium">
               Stay informed with recent news
             </p>
-=======
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-16 text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              <span className="uppercase bg-linear-to-r from-yellow-600 via-red-600 to-red-900 bg-clip-text text-transparent">Latest Updates</span>
-            </h2>
-            <div className="w-32 h-1.5 bg-linear-to-r from-yellow-600 via-red-600 to-red-900 rounded-full mx-auto mb-4" />
-            <p className="text-lg text-gray-700 max-w-2xl mx-auto font-medium">Stay informed with recent news</p>
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
           </motion.div>
 
           {loading ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
               {[1, 2, 3].map((i) => (
-<<<<<<< HEAD
                 <div
                   key={i}
                   className="p-6 rounded-3xl bg-linear-to-br from-red-200 via-orange-200 to-green-200 animate-pulse h-96"
                 />
-=======
-                <div key={i} className="p-6 rounded-3xl bg-linear-to-br from-red-200 via-orange-200 to-green-200 animate-pulse h-96" />
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
               ))}
             </div>
           ) : news.length > 0 ? (
@@ -920,11 +562,7 @@ export default function Home() {
                   <div className="relative h-56 overflow-hidden bg-linear-to-br from-red-100 via-orange-100 to-green-100">
                     {item.image ? (
                       <img
-<<<<<<< HEAD
                         src={`${process.env.NEXT_PUBLIC_IMAGE_URL || "http://localhost:8000"}/${item.image}`}
-=======
-                        src={`${process.env.NEXT_PUBLIC_IMAGE_URL || ""}/${item.image}`}
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
                         alt={item.title}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       />
@@ -943,24 +581,16 @@ export default function Home() {
                   <div className="p-6">
                     <p className="text-sm text-gray-500 mb-3 flex items-center gap-2 font-medium">
                       <Clock className="w-4 h-4" />
-<<<<<<< HEAD
                       {item.published_at
                         ? formatDate(item.published_at)
                         : formatDate(item.created_at)}
-=======
-                      {item.published_at ? formatDate(item.published_at) : formatDate(item.created_at)}
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
                     </p>
                     <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:bg-linear-to-r group-hover:from-red-600 group-hover:via-orange-600 group-hover:to-green-600 group-hover:bg-clip-text group-hover:text-transparent transition-all">
                       {item.title}
                     </h3>
-<<<<<<< HEAD
                     <p className="text-gray-600 line-clamp-3 leading-relaxed mb-4">
                       {item.content.substring(0, 120)}...
                     </p>
-=======
-                    <p className="text-gray-600 line-clamp-3 leading-relaxed mb-4">{item.content.substring(0, 120)}...</p>
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
                     <motion.div
                       whileHover={{ x: 5 }}
                       className="inline-flex items-center gap-2 text-sm font-bold bg-linear-to-r from-red-600 via-orange-600 to-green-600 bg-clip-text text-transparent"
@@ -978,16 +608,12 @@ export default function Home() {
             </div>
           )}
 
-<<<<<<< HEAD
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="text-center"
           >
-=======
-          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-center">
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
             <Link href="/news">
               <motion.button
                 whileHover={{ scale: 1.05 }}
@@ -1001,11 +627,7 @@ export default function Home() {
         </div>
       </section>
 
-<<<<<<< HEAD
       {/* News Modal */}
-=======
-      {/* Modal */}
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
       <AnimatePresence>
         {selectedArticle && (
           <motion.div
@@ -1026,11 +648,7 @@ export default function Home() {
               <div className="relative h-72 md:h-96 overflow-hidden">
                 {selectedArticle.image ? (
                   <img
-<<<<<<< HEAD
                     src={`${process.env.NEXT_PUBLIC_IMAGE_URL || "http://localhost:8000"}/${selectedArticle.image}`}
-=======
-                    src={`${process.env.NEXT_PUBLIC_IMAGE_URL || ""}/${selectedArticle.image}`}
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
                     alt={selectedArticle.title}
                     className="w-full h-full object-cover"
                   />
@@ -1071,13 +689,9 @@ export default function Home() {
                         <Calendar className="w-5 h-5 text-orange-600" />
                       </div>
                       <span className="font-medium">
-<<<<<<< HEAD
                         {selectedArticle.published_at
                           ? formatDate(selectedArticle.published_at)
                           : formatDate(selectedArticle.created_at)}
-=======
-                        {selectedArticle.published_at ? formatDate(selectedArticle.published_at) : formatDate(selectedArticle.created_at)}
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
                       </span>
                     </div>
 
@@ -1086,25 +700,17 @@ export default function Home() {
                         <div className="w-10 h-10 bg-linear-to-br from-red-100 via-orange-100 to-green-100 rounded-full flex items-center justify-center">
                           <User className="w-5 h-5 text-orange-600" />
                         </div>
-<<<<<<< HEAD
                         <span className="font-medium">
                           By {selectedArticle.author.name}
                         </span>
-=======
-                        <span className="font-medium">By {selectedArticle.author.name}</span>
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
                       </div>
                     )}
                   </div>
 
                   <div className="prose prose-lg max-w-none">
-<<<<<<< HEAD
                     <p className="text-gray-700 text-lg leading-relaxed whitespace-pre-line">
                       {selectedArticle.content}
                     </p>
-=======
-                    <p className="text-gray-700 text-lg leading-relaxed whitespace-pre-line">{selectedArticle.content}</p>
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
                   </div>
                 </div>
               </div>
@@ -1125,7 +731,6 @@ export default function Home() {
       </AnimatePresence>
 
       {/* Testimonials Section */}
-<<<<<<< HEAD
       <section className="w-full py-20 px-4 sm:px-6 lg:px-8 bg-linear-to-br from-orange-50 to-red-50 border-t border-gray-200 relative z-10">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -1191,39 +796,12 @@ export default function Home() {
 
               <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-12 md:w-16 bg-linear-to-r from-orange-50 to-transparent pointer-events-none" />
               <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-12 md:w-16 bg-linear-to-l from-orange-50 to-transparent pointer-events-none" />
-=======
-      <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-accent-300 relative z-10">
-        <div className="max-w-7xl mx-auto">
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-16 text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              <span className="uppercase bg-linear-to-r from-yellow-600 via-red-600 to-red-900 bg-clip-text text-transparent">
-                What Other Student Say
-              </span>
-            </h2>
-            <div className="w-32 h-1.5 bg-linear-to-r from-yellow-600 via-red-600 to-red-900 rounded-full mx-auto mb-4" />
-            <p className="text-lg text-gray-700 max-w-2xl mx-auto font-medium">View what others said</p>
-            <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-6">
-              {testimonialLoading ? (
-                [...Array(3)].map((_, i) => <div key={i} className="bg-gray-100 p-8 rounded-3xl shadow animate-pulse h-56" />)
-              ) : testimonials.length > 0 ? (
-                testimonials.map((t, i) => (
-                  <motion.div key={t.id} whileHover={{ y: -6 }} className="bg-gray-50 p-8 rounded-3xl shadow border">
-                    <p className="italic text-gray-700 mb-6">“{t.message}”</p>
-                    <h4 className="font-bold">{t.name}</h4>
-                    <p className="text-sm text-gray-500">{t.role}</p>
-                  </motion.div>
-                ))
-              ) : (
-                <div className="col-span-full text-center py-12 text-gray-600">No testimonials available.</div>
-              )}
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* Business Partners Section */}
-<<<<<<< HEAD
       <section className="w-full py-20 px-4 sm:px-6 lg:px-8 bg-linear-to-br from-red-50 to-orange-50">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -1232,18 +810,12 @@ export default function Home() {
             viewport={{ once: true }}
             className="mb-12 text-center"
           >
-=======
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-linear-to-br from-red-50 to-orange-50 overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-12 text-center">
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               <span className="uppercase bg-linear-to-r from-yellow-600 via-red-600 to-red-900 bg-clip-text text-transparent">
                 Our Business Partners
               </span>
             </h2>
             <div className="w-32 h-1.5 bg-linear-to-r from-yellow-600 via-red-600 to-red-900 rounded-full mx-auto mb-4" />
-<<<<<<< HEAD
             <p className="text-lg text-gray-700 max-w-2xl mx-auto font-medium">
               Trusted organizations working with us to serve the community better
             </p>
@@ -1278,47 +850,11 @@ export default function Home() {
               <p className="text-gray-500">No business partners to display at this time.</p>
             </div>
           )}
-=======
-            <p className="text-lg text-gray-700 max-w-2xl mx-auto font-medium">Trusted organizations working with us to serve the community better</p>
-          </motion.div>
-
-          {/* Continuous Slider */}
-          <div className="relative overflow-hidden">
-            <motion.div
-              className="flex gap-10"
-              animate={{ x: ["0%", "-50%"] }}
-              transition={{
-                repeat: Infinity,
-                repeatType: "loop",
-                duration: 30,
-                ease: "linear",
-              }}
-            >
-              {[...BUSINESS_PARTNERS, ...BUSINESS_PARTNERS].map((partner, i) => (
-                <div
-                  key={i}
-                  className="flex-shrink-0 w-64 h-32 bg-white rounded-2xl shadow-lg border border-gray-100 flex items-center justify-center hover:shadow-2xl transition-all"
-                >
-                  {partner.logo ? (
-                    <img src={partner.logo} alt={partner.name} className="max-h-16 object-contain" />
-                  ) : (
-                    <span className="font-bold text-gray-700 text-center px-4">{partner.name}</span>
-                  )}
-                </div>
-              ))}
-            </motion.div>
-
-            {/* Fade edges */}
-            <div className="absolute left-0 top-0 bottom-0 w-24 bg-linear-to-r from-red-50 to-transparent pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-24 bg-linear-to-l from-red-50 to-transparent pointer-events-none" />
-          </div>
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
         </div>
       </section>
 
       <CTASection />
       <Footer />
-<<<<<<< HEAD
 
       {/* Announcement Detail Modal */}
       <AnimatePresence>
@@ -1447,8 +983,3 @@ function PartnerCard({ partner }: { partner: BusinessPartner }) {
 
   return CardContent;
 }
-=======
-    </main>
-  )
-}
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55

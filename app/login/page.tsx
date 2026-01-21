@@ -143,10 +143,6 @@ export default function LoginPage() {
         description: (
           <div>
             <p className="font-semibold">Welcome back, {result.user?.name || "User"}!</p>
-<<<<<<< HEAD
-=======
-
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
             <p className="text-sm">Redirecting to your dashboard...</p>
           </div>
         ),
@@ -154,7 +150,6 @@ export default function LoginPage() {
         duration: 3000,
       })
 
-<<<<<<< HEAD
       // Redirect based on role
       setTimeout(() => {
         if (userRole === "admin") {
@@ -166,20 +161,6 @@ export default function LoginPage() {
         }
       }, 1500)
 
-=======
-      // Redirect based on role - FIXED: Admin goes to /dashboard/admin/news
-      setTimeout(() => {
-        if (userRole === "admin") {
-          console.log("Redirecting admin to: /dashboard/admin/news")
-          router.replace("/dashboard/admin/news")
-        } else {
-          console.log("Redirecting member to: /")
-          router.replace("/login")
-        }
-      }, 1500)
-
-
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
     } catch (err) {
       console.error("Login error:", err)
 
@@ -211,21 +192,8 @@ export default function LoginPage() {
     }
   }
 
-<<<<<<< HEAD
-  // Handle Enter key press
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      e.preventDefault()
-      handleLogin(e as any)
-    }
-  }
-
-  return (
-    <main className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-orange-50 flex items-center justify-center px-4">
-=======
   return (
     <main className="min-h-screen bg-linear-to-br from-emerald-50 via-white to-orange-50 flex items-center justify-center px-4">
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -239,7 +207,6 @@ export default function LoginPage() {
             transition={{ delay: 0.1 }}
             className="text-center mb-10"
           >
-<<<<<<< HEAD
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-orange-100 to-emerald-100 mb-4">
               <span className="text-2xl font-bold text-orange-600">C</span>
             </div>
@@ -248,16 +215,6 @@ export default function LoginPage() {
           </motion.div>
 
           <form onSubmit={handleLogin} className="space-y-5">
-=======
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-linear-to-br from-orange-100 to-emerald-100 mb-4">
-              <span className="text-2xl font-bold text-orange-600">C</span>
-            </div>
-            <h1 className="text-4xl font-bold bg-linear-to-r from-red-900 via-red-800 to-yellow-500/80 bg-clip-text text-transparent mb-2">Welcome Back</h1>
-            <p className="text-gray-600">Sign in to your Perpetual Village City account</p>
-          </motion.div>
-
-          <div className="space-y-5">
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
               <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
               <input
@@ -276,10 +233,6 @@ export default function LoginPage() {
                 className={`w-full px-4 py-3 rounded-lg border ${errors.email ? "border-red-500 focus:border-red-500 focus:ring-red-200" : "border-orange-200 focus:border-orange-500 focus:ring-orange-200"
                   } focus:ring-2 transition`}
                 placeholder="your@email.com"
-<<<<<<< HEAD
-=======
-                onKeyDown={(e) => e.key === 'Enter' && handleLogin(e)}
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
               />
               {errors.email && (
                 <div className="mt-1 flex items-start gap-1 text-red-600 text-xs">
@@ -307,10 +260,6 @@ export default function LoginPage() {
                 className={`w-full px-4 py-3 rounded-lg border ${errors.password ? "border-red-500 focus:border-red-500 focus:ring-red-200" : "border-orange-200 focus:border-orange-500 focus:ring-orange-200"
                   } focus:ring-2 transition`}
                 placeholder="••••••••"
-<<<<<<< HEAD
-=======
-                onKeyDown={(e) => e.key === 'Enter' && handleLogin(e)}
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
               />
               {errors.password && (
                 <div className="mt-1 flex items-start gap-1 text-red-600 text-xs">
@@ -332,23 +281,14 @@ export default function LoginPage() {
             </motion.div>
 
             <motion.button
-<<<<<<< HEAD
               type="submit"
-=======
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-<<<<<<< HEAD
               disabled={loading}
               className="w-full px-6 py-4 rounded-lg bg-gradient-to-br from-yellow-700/90 via-red-700/60 to-[#800000]/90 text-white font-bold hover:shadow-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed mt-2"
-=======
-              onClick={handleLogin}
-              disabled={loading}
-              className="w-full px-6 py-4 rounded-lg bg-linear-to-br from-yellow-700/90 via-red-700/60 to-[#800000]/90 text-white font-bold hover:shadow-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed mt-2"
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
             >
               {loading ? (
                 <>
@@ -362,11 +302,7 @@ export default function LoginPage() {
                 </>
               )}
             </motion.button>
-<<<<<<< HEAD
           </form>
-=======
-          </div>
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
 
           <motion.div
             initial={{ opacity: 0 }}

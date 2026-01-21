@@ -1,15 +1,6 @@
-<<<<<<< HEAD
-// app/api/legitimacy/route.ts
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || process.env.API_URL || "http://localhost:8000/api"
-
-=======
-import { NextRequest, NextResponse } from "next/server"
-import { cookies } from "next/headers"
-
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
 export async function GET(request: NextRequest) {
   try {
     const cookieStore = await cookies()
@@ -19,18 +10,11 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 })
     }
 
-<<<<<<< HEAD
-    const { searchParams } = new URL(request.url)
-    const queryString = searchParams.toString()
-
-    const response = await fetch(`${API_URL}/legitimacy?${queryString}`, {
-=======
     // Forward query params (page, per_page, status)
     const { searchParams } = new URL(request.url)
     const queryString = searchParams.toString()
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/legitimacy?${queryString}`, {
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -45,25 +29,15 @@ export async function GET(request: NextRequest) {
     if (!contentType?.includes("application/json")) {
       const text = await response.text()
       console.error("Non-JSON response:", text)
-<<<<<<< HEAD
-=======
-
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
       return NextResponse.json({ success: false, message: "Invalid response from server" }, { status: 500 })
     }
 
     const data = await response.json()
-<<<<<<< HEAD
-    return NextResponse.json(data, { status: response.status })
-  } catch (error) {
-    console.error("Legitimacy index error:", error)
-=======
 
     return NextResponse.json(data, { status: response.status })
   } catch (error) {
     console.error("Legitimacy index error:", error)
 
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
     return NextResponse.json(
       {
         success: false,
@@ -86,11 +60,7 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json()
 
-<<<<<<< HEAD
-    const response = await fetch(`${API_URL}/legitimacy`, {
-=======
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/legitimacy`, {
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -141,8 +111,4 @@ export async function POST(request: NextRequest) {
       { status: 500 },
     )
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55

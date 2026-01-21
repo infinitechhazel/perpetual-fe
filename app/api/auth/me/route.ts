@@ -52,19 +52,11 @@ export async function GET() {
     }
 
     // Return in the format the frontend expects: { success: true, user: {...} }
-<<<<<<< HEAD
     return NextResponse.json({
       success: true,
       user: user
     })
 
-=======
-    return NextResponse.json({ 
-      success: true, 
-      user: user 
-    })
-    
->>>>>>> 561776b9ce8628155506d64a5d7a830f2d0d8d55
   } catch (error) {
     console.error('API Route - Error:', error)
     return NextResponse.json(
