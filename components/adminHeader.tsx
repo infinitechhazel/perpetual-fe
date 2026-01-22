@@ -55,18 +55,7 @@ export default function AdminHeader() {
               <p className="text-xs text-gray-500">Admin Panel</p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <button className="relative p-2 hover:bg-gray-100 rounded-lg">
-              <Bell size={20} />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-            </button>
-            <button 
-              onClick={handleLogout}
-              className="p-2 text-slate-800 hover:bg-slate-50 rounded-lg"
-            >
-              <LogOut size={20} />
-            </button>
-          </div>
+          
         </div>
       </header>
     </>

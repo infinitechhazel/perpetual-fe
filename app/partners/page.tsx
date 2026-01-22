@@ -5,7 +5,7 @@ import PageLayout from "@/components/page-layout"
 import ServicesSection from "@/components/partners-section"
 import VerifyUserForm from "@/components/verification-form"
 
-export default function ServicesPage() {
+export default function PartnershipPage() {
   return (
     <PageLayout
       title="Trusted Partners"
