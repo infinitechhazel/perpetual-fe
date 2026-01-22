@@ -65,7 +65,7 @@ export default function MemberPartnersPage() {
       if (statusFilter !== "all") params.append("status", statusFilter)
       if (searchQuery) params.append("search", searchQuery)
 
-      const res = await fetch(`/api/business-partners?${params.toString()}`, {
+      const res = await fetch(`/api/business-partners/user?${params.toString()}`, {
         credentials: "include",
       })
       const data = await res.json()

@@ -1,33 +1,46 @@
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
 
-
-
-// Business Partners - User Access 
 export async function GET(req: NextRequest) {
   try {
-    const token = req.cookies.get("auth_token")?.value
-    if (!token) {
-      return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 })
-    }
+    const { searchParams } = new URL(req.url)
 
-    const url = new URL(req.url)
-    const queryParams = url.searchParams.toString()
+    const search = searchParams.get("search") ?? ""
+    const page = searchParams.get("page") ?? "1"
+    const perPage = searchParams.get("per_page") ?? "10"
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/business-partners?${queryParams}`, {
+    const query = new URLSearchParams({
+      page,
+      per_page: perPage,
+    })
+
+    if (search) query.append("search", search)
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/business-partners?${query.toString()}`, {
+      method: "GET",
       headers: {
-        Authorization: `Bearer ${token}`,
         Accept: "application/json",
       },
+      cache: "no-store",
     })
 
     const data = await res.json()
-    console.log("Laravel response:", data)
 
-    return NextResponse.json(data, { status: res.status })
-  } catch (err) {
-    console.error("Server error:", err)
-    return NextResponse.json({ success: false, message: "Server error" }, { status: 500 })
+    if (!res.ok) {
+      return NextResponse.json({ success: false, message: "Failed to fetch businesses" }, { status: res.status })
+    }
+
+    return NextResponse.json(data)
+  } catch (error) {
+    console.error("BusinessPartner public index error:", error)
+
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Internal server error",
+      },
+      { status: 500 },
+    )
   }
 }
 

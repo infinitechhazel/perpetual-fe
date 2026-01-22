@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Search, Filter, Eye, Edit, Trash2, ChevronRight, ChevronLeft } from "lucide-react"
+import { Search, Filter, Eye, Edit, Trash2, ChevronRight, ChevronLeft, Printer } from "lucide-react"
 import AdminLayout from "@/components/adminLayout"
 import { useAuth } from "@/hooks/useAuth"
 import { useToast } from "@/components/ui/use-toast"

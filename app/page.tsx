@@ -32,6 +32,7 @@ import {
 } from "@/components/ui/carousel"
 
 import CTASection from "@/components/cta-section";
+import Marquee from "react-fast-marquee";
 
 interface NewsArticle {
   id: number;
@@ -827,20 +828,11 @@ export default function Home() {
             </div>
           ) : businessPartners.length > 0 ? (
             <div className="relative w-full overflow-hidden">
-              <motion.div
-                className="flex gap-4 sm:gap-6 md:gap-8"
-                animate={{ x: ["0%", "-50%"] }}
-                transition={{
-                  repeat: Infinity,
-                  repeatType: "loop",
-                  duration: 45,
-                  ease: "linear",
-                }}
-              >
+              <Marquee speed={20}>
                 {[...businessPartners, ...businessPartners].map((partner, i) => (
                   <PartnerCard key={`partner-${i}`} partner={partner} />
                 ))}
-              </motion.div>
+              </Marquee>
 
               <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-16 md:w-24 bg-linear-to-r from-red-50 to-transparent pointer-events-none" />
               <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-16 md:w-24 bg-linear-to-l from-red-50 to-transparent pointer-events-none" />
@@ -938,7 +930,7 @@ function PartnerCard({ partner }: { partner: BusinessPartner }) {
   const hasValidImage = !!(partner.photo);
 
   const CardContent = (
-    <div className="flex-shrink-0 w-64 sm:w-72 md:w-80 bg-white rounded-lg sm:rounded-xl md:rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl transition-all flex flex-col">
+    <div className="flex-shrink-0 w-64 mx-4 sm:w-72 md:w-80 bg-white rounded-lg sm:rounded-xl md:rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl transition-all flex flex-col">
       <div className="relative w-full h-40 sm:h-48 md:h-56 flex items-center justify-center flex-shrink-0">
         {hasValidImage && !imageError ? (
           <img
