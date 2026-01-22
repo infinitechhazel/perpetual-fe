@@ -89,7 +89,7 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
   useEffect(() => {
     if (mode === "edit" && initialData) {
       const imageBaseUrl = process.env.NEXT_PUBLIC_IMAGE_URL || ""
-      
+
       setForm({
         alias: initialData.alias,
         chapter: initialData.chapter,
@@ -139,12 +139,12 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
 
   const removeSignatory = (index: number) => {
     const signatory = form.signatories[index]
-    
+
     // If the signatory has an ID, track it for deletion
     if (signatory.id) {
       setDeletedSignatoryIds([...deletedSignatoryIds, signatory.id])
     }
-    
+
     const updated = form.signatories.filter((_, i) => i !== index)
     setForm({ ...form, signatories: updated })
   }
@@ -158,12 +158,12 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
 
     // Validate fraternity number exists in users list (for create mode)
     if (mode === "create") {
-      const userExists = users.find(u => u.fraternity_number === form.fraternity_number)
+      const userExists = users.find((u) => u.fraternity_number === form.fraternity_number)
       if (!userExists) {
-        toast({ 
-          title: "Error", 
-          description: "Invalid fraternity number. Please select a valid user.", 
-          variant: "destructive" 
+        toast({
+          title: "Error",
+          description: "Invalid fraternity number. Please select a valid user.",
+          variant: "destructive",
         })
         return
       }
@@ -193,7 +193,8 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
       // Add signatories
       // Add signatories with proper handling
       form.signatories.forEach((sig, i) => {
-        if (sig.name.trim()) { // Only add if name is not empty
+        if (sig.name.trim()) {
+          // Only add if name is not empty
           payload.append(`signatories[${i}][name]`, sig.name)
           if (sig.id) payload.append(`signatories[${i}][id]`, sig.id.toString())
           if (sig.role) payload.append(`signatories[${i}][role]`, sig.role)
@@ -219,10 +220,10 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
         onSubmitSuccess()
         onClose()
       } else {
-        toast({ 
-          title: "Error", 
-          description: data.message || data.errors?.fraternity_number?.[0] || "Failed to save.", 
-          variant: "destructive" 
+        toast({
+          title: "Error",
+          description: data.message || data.errors?.fraternity_number?.[0] || "Failed to save.",
+          variant: "destructive",
         })
       }
     } catch (error) {
@@ -245,65 +246,30 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="fraternity-number">Fraternity Number *</Label>
-                {mode === "create" ? (
-                  <select
-                    id="fraternity-number"
-                    className="border rounded px-3 py-2 w-full"
-                    value={form.fraternity_number}
-                    onChange={(e) => {
-                      const selectedUser = users.find(u => u.fraternity_number === e.target.value)
-                      setForm({ 
-                        ...form, 
-                        fraternity_number: e.target.value,
-                        alias: selectedUser?.name || form.alias
-                      })
-                    }}
-                    disabled={loadingUsers}
-                  >
-                    <option value="">Select User</option>
-                    {users.map((user) => (
-                      <option key={user.id} value={user.fraternity_number}>
-                        {user.fraternity_number} - {user.name}
-                      </option>
-                    ))}
-                  </select>
-                ) : (
-                  <Input 
-                    id="fraternity-number"
-                    value={form.fraternity_number} 
-                    disabled 
-                    className="bg-gray-100"
-                  />
-                )}
+                <Input
+                  id="fraternity-number"
+                  value={form.fraternity_number}
+                  onChange={(e) => setForm({ ...form, fraternity_number: e.target.value })}
+                  disabled={mode === "edit"}
+                  className={` ${mode === "edit" ? "cursor-not-allowed bg-gray-100" : ""}`}
+                />
               </div>
-              
+
               <div>
                 <Label htmlFor="alias">Alias *</Label>
-                <Input 
-                  id="alias"
-                  value={form.alias} 
-                  onChange={(e) => setForm({ ...form, alias: e.target.value })} 
-                />
+                <Input id="alias" value={form.alias} onChange={(e) => setForm({ ...form, alias: e.target.value })} />
               </div>
-              
+
               <div>
                 <Label htmlFor="chapter">Chapter *</Label>
-                <Input 
-                  id="chapter"
-                  value={form.chapter} 
-                  onChange={(e) => setForm({ ...form, chapter: e.target.value })} 
-                />
+                <Input id="chapter" value={form.chapter} onChange={(e) => setForm({ ...form, chapter: e.target.value })} />
               </div>
-              
+
               <div>
                 <Label htmlFor="position">Position *</Label>
-                <Input 
-                  id="position"
-                  value={form.position} 
-                  onChange={(e) => setForm({ ...form, position: e.target.value })} 
-                />
+                <Input id="position" value={form.position} onChange={(e) => setForm({ ...form, position: e.target.value })} />
               </div>
-              
+
               <div>
                 <Label htmlFor="status">Status</Label>
                 <select
@@ -317,24 +283,24 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
                   <option value="rejected">Rejected</option>
                 </select>
               </div>
-              
+
               <div>
                 <Label htmlFor="certificate-date">Certificate Date *</Label>
-                <Input 
+                <Input
                   id="certificate-date"
-                  type="date" 
-                  value={form.certificate_date || ""} 
-                  onChange={(e) => setForm({ ...form, certificate_date: e.target.value })} 
+                  type="date"
+                  value={form.certificate_date || ""}
+                  onChange={(e) => setForm({ ...form, certificate_date: e.target.value })}
                 />
               </div>
             </div>
 
             <div>
               <Label htmlFor="admin-note">Admin Note</Label>
-              <Textarea 
+              <Textarea
                 id="admin-note"
-                value={form.admin_note || ""} 
-                onChange={(e) => setForm({ ...form, admin_note: e.target.value })} 
+                value={form.admin_note || ""}
+                onChange={(e) => setForm({ ...form, admin_note: e.target.value })}
                 className="resize-none"
                 rows={3}
               />
@@ -345,10 +311,10 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
               <div className="flex items-center justify-between mb-2">
                 <Label>Signatories</Label>
                 <span className="text-xs text-gray-500">
-                  {form.signatories.length} signator{form.signatories.length !== 1 ? 'ies' : 'y'}
+                  {form.signatories.length} signator{form.signatories.length !== 1 ? "ies" : "y"}
                 </span>
               </div>
-              
+
               {form.signatories.map((sig, idx) => (
                 <div key={sig.id ?? `new-${idx}`} className="flex flex-col gap-3 mb-4 p-4 border rounded-md bg-gray-50">
                   <div className="flex items-center justify-between">
@@ -361,11 +327,11 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
                         onChange={(e) => handleSignatoryChange(idx, "name", e.target.value)}
                       />
                     </div>
-                    <Button 
+                    <Button
                       type="button"
-                      variant="ghost" 
-                      className="text-red-500 p-2 ml-2 hover:bg-red-50" 
-                      onClick={() => removeSignatory(idx)} 
+                      variant="ghost"
+                      className="text-red-500 p-2 ml-2 hover:bg-red-50"
+                      onClick={() => removeSignatory(idx)}
                       aria-label="Remove signatory"
                     >
                       <X className="w-4 h-4" />
@@ -405,9 +371,7 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
                         }
                       }}
                     />
-                    {sig.signature_file && (
-                      <p className="text-xs text-green-600 mt-1">✓ New file selected: {sig.signature_file.name}</p>
-                    )}
+                    {sig.signature_file && <p className="text-xs text-green-600 mt-1">✓ New file selected: {sig.signature_file.name}</p>}
                   </div>
 
                   {sig.signature_url && !sig.signature_file && (
@@ -420,7 +384,8 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
                           className="w-40 h-24 object-contain"
                           onError={(e) => {
                             console.error("Image failed to load:", sig.signature_url)
-                            e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='96'%3E%3Crect width='160' height='96' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%239ca3af' font-family='sans-serif' font-size='12'%3EImage not found%3C/text%3E%3C/svg%3E"
+                            e.currentTarget.src =
+                              "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='96'%3E%3Crect width='160' height='96' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%239ca3af' font-family='sans-serif' font-size='12'%3EImage not found%3C/text%3E%3C/svg%3E"
                           }}
                         />
                       </div>
@@ -429,12 +394,7 @@ export default function AdminLegitimacyModal({ isOpen, mode, initialData, onClos
                 </div>
               ))}
 
-              <Button 
-                type="button"
-                variant="outline" 
-                onClick={addSignatory} 
-                className="mt-2 flex items-center gap-2 w-full"
-              >
+              <Button type="button" variant="outline" onClick={addSignatory} className="mt-2 flex items-center gap-2 w-full">
                 <Plus className="w-4 h-4" /> Add Signatory
               </Button>
             </div>

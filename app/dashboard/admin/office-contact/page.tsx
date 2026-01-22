@@ -153,8 +153,8 @@ export default function OfficeContactPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-indigo-100 rounded-lg">
-                  <MapPin className="w-6 h-6 text-indigo-600" />
+                <div className="p-2 bg-red-100 rounded-lg">
+                  <MapPin className="w-6 h-6 text-red-600" />
                 </div>
                 <div>
                   <h1 className="text-2xl font-bold text-gray-900">Office Contact Management</h1>
@@ -206,7 +206,7 @@ export default function OfficeContactPage() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-indigo-600" />
+                    <MapPin className="w-4 h-4 text-red-600" />
                     Office Location <span className="text-red-500">*</span>
                   </div>
                 </label>
@@ -214,7 +214,7 @@ export default function OfficeContactPage() {
                   value={formData.office_location}
                   onChange={(e) => setFormData({ ...formData, office_location: e.target.value })}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 resize-none"
                   placeholder="Enter complete office address"
                 />
                 <p className="text-xs text-gray-500 mt-1">
@@ -226,7 +226,7 @@ export default function OfficeContactPage() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <div className="flex items-center gap-2">
-                    <Phone className="w-4 h-4 text-indigo-600" />
+                    <Phone className="w-4 h-4 text-red-600" />
                     Phone Number <span className="text-red-500">*</span>
                   </div>
                 </label>
@@ -234,7 +234,7 @@ export default function OfficeContactPage() {
                   type="tel"
                   value={formData.phone_number}
                   onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                   placeholder="e.g., +1 (555) 123-4567"
                 />
                 <p className="text-xs text-gray-500 mt-1">
@@ -246,7 +246,7 @@ export default function OfficeContactPage() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <div className="flex items-center gap-2">
-                    <Mail className="w-4 h-4 text-indigo-600" />
+                    <Mail className="w-4 h-4 text-red-600" />
                     Email Address <span className="text-red-500">*</span>
                   </div>
                 </label>
@@ -254,7 +254,7 @@ export default function OfficeContactPage() {
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                   placeholder="e.g., contact@example.com"
                 />
                 <p className="text-xs text-gray-500 mt-1">
@@ -266,7 +266,7 @@ export default function OfficeContactPage() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-indigo-600" />
+                    <Clock className="w-4 h-4 text-red-600" />
                     Office Hours <span className="text-red-500">*</span>
                   </div>
                 </label>
@@ -274,7 +274,7 @@ export default function OfficeContactPage() {
                   value={formData.office_hours}
                   onChange={(e) => setFormData({ ...formData, office_hours: e.target.value })}
                   rows={4}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 resize-none"
                   placeholder="e.g., Monday - Friday: 9:00 AM - 5:00 PM"
                 />
                 <p className="text-xs text-gray-500 mt-1">
@@ -286,7 +286,7 @@ export default function OfficeContactPage() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <div className="flex items-center gap-2">
-                    <Map className="w-4 h-4 text-indigo-600" />
+                    <Map className="w-4 h-4 text-red-600" />
                     Map Link (Optional)
                   </div>
                 </label>
@@ -294,7 +294,7 @@ export default function OfficeContactPage() {
                   type="url"
                   value={formData.map_link}
                   onChange={(e) => setFormData({ ...formData, map_link: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                   placeholder="e.g., https://maps.google.com/..."
                 />
                 <p className="text-xs text-gray-500 mt-1">
@@ -309,7 +309,7 @@ export default function OfficeContactPage() {
             <button
               onClick={handleSubmit}
               disabled={isSubmitting}
-              className="w-full md:w-auto px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full md:w-auto px-6 py-3 bg-gradient-to-r from-red-600 to-amber-600 text-white rounded-lg hover:from-red-700 hover:to-purple-700 transition-all text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {isSubmitting ? (
                 <>

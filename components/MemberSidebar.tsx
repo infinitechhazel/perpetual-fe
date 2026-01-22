@@ -107,8 +107,8 @@ export default function MemberSidebar({
     { icon: Home, label: 'Home', path: '/dashboard/member' },
     { icon: Grid3x3, label: 'Partners', path: '/dashboard/member/partners' },
     { icon: Newspaper, label: 'News', path: '/dashboard/member/news' },
-    { icon: User, label: 'Announcemnets', path: '/dashboard/member/announcement' },
-    { icon: User, label: 'Certificate of Legitemacy', path: '/dashboard/member/legitimacy' },
+    { icon: Newspaper, label: 'Announcemnets', path: '/dashboard/member/announcement' },
+    { icon: File, label: 'Certificate of Legitemacy', path: '/dashboard/member/legitimacy' },
   ];
 
   // const quickAccessItems = [
@@ -184,7 +184,7 @@ export default function MemberSidebar({
           {/* Certificates Section */}
           <div className="group">
             {/* MAIN BUTTON */}
-            <button
+            {/* <button
               onClick={() => !isCollapsed && toggleSection("certificates")}
               className={`w-full flex items-center justify-between gap-3 px-3 py-3 rounded-lg text-left transition-colors text-sm hover:bg-white/10 ${isCertificatesActive ? "bg-white/20 font-semibold shadow-lg" : "hover:bg-white/10"} ${isCollapsed ? "justify-center" : ""}`}
             >
@@ -204,10 +204,10 @@ export default function MemberSidebar({
                   <ChevronUp size={16} />
                 )
               )}
-            </button>
+            </button> */}
 
             {/* NORMAL EXPANDED MODE */}
-            {!isCollapsed && expandedSections.certificates && (
+            {/* {!isCollapsed && expandedSections.certificates && (
               <div className="space-y-1 pl-3 m-1">
                 {certificateItems.map((item, index) => {
                   const active = isActive(item.path);
@@ -223,7 +223,7 @@ export default function MemberSidebar({
                   );
                 })}
               </div>
-            )}
+            )} */}
 
             {/* COLLAPSED MODE FLYOUT */}
             {isCollapsed && (
